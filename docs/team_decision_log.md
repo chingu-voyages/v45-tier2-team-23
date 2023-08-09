@@ -8,19 +8,16 @@ To set this up add each teammates name in the `teammate name` column. Each
 team member should Place an 'X' under their name to vote for the ideas 
 you like the best.
 
-| No. | Question/Option | Teammate name | Teammate name | Teammate name | Teammate name | Teammate name | Teammate name |
+| No. | Question/Option | Ami | Chris | Lapka | Sozin | Sarah | Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | 1 | Team meeting schedule | | | | | | |
-|   |	- Sprint Planning Sunday@9:00 a.m. CST | | | | | | |
-|   |	- Knowledge Xfer as needed | | | | | | |
-|   |	- Working Session Thursday@4:00 p.m. CST | | | | | | |
+|   |	- Weekly Session 6pm every Tuesday | | | | | | |
 | 2	| Project Backlog Tool | | | | | | |
-|   |	- Notion | | | | | | |
-|   |	- Jira | | | | | | |
+|   |	- Github Issues | | | | | | |
 | 3	| Technical Stack (vote by adding your pref. in the cell under your name) | | | | | | |
-|   |	- BE Language | | | | | | |
-|   |	- FE Language | | | | | | |
-|   |	- FE Framework | | | | | | |
+|   |	- FE Language - JavaScript, CSS | | | | | | |
+|   |	- FE Framework - React.js & Next.js | | | | | | |
+|   |	- CSS Library - Tailwind v3.3.3 | | | | | | |
 |   |	- ML Framework | | | | | | |
 |   |	- Visualization/Graphics package (if required, e.g. D3, Nivo, etc.) | | | | | | |
 | 4	| Where to host the app? | | | | | | |
@@ -28,16 +25,12 @@ you like the best.
 |   |	- Netlify (suitable only for FE) | | | | | | |
 |   |	- Vercel (suitable only for FE) | | | | | | |
 |   |	- Mongo Atlas (suitable only for MongoDB) | | | | | | |
-| 5	| BE/FE repos organization | | | | | | |
+| 5	| BE/FE repos organization N/A | | | | | | |
 |   |	- Separate GitHub repos for each | | | | | | |
 |   |	- Single GitHub repo for both | | | | | | |
 | 6	| Wireframing tool | | | | | | |
-|   |	- Paper & pencil | | | | | | |
-|   |	- Adobe XD | | | | | | |
-|   |	- Balsamiq | | | | | | |
-|   |	- Figma | | | | | | |
+|   |	- Figma | | | | | | We will see if our UI/UX person shows up and has a preference in tools, but otherwise Figma (Aug 8)|
 | 7	| Who works in which part of the app? | | | | | | |
-|   | - BE (not applicable for Tier 1 teams) | | | | | | |
 |   |	- FE | | | | | | |
 | 8	| ... | | | | | | |
 | n | ... | | | | | | |
