@@ -13,7 +13,7 @@ you like the best.
 | 1 | Team meeting schedule | | | | | | |
 |   |	- Weekly Session 6pm every Tuesday | | | | | | |
 | 2	| Project Backlog Tool | | | | | | |
-|   |	- Github Issues | | | | | | |
+|   |	- Github Project Tab| | | | | | |
 | 3	| Technical Stack (vote by adding your pref. in the cell under your name) | | | | | | |
 |   |	- FE Language - JavaScript, CSS | | | | | | |
 |   |	- FE Framework - React.js & Next.js | | | | | | |
