@@ -8,7 +8,7 @@ To set this up add each teammates name in the `teammate name` column. Each
 team member should Place an 'X' under their name to vote for the ideas 
 you like the best.
 
-| No. | Question/Option | Ami | Chris | Lapka | Sozin | Sarah | Notes |
+| No. | Question/Option | Ami | Chris | Lapka | Sozin | Gigi | Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | 1 | Team meeting schedule | | | | | | |
 |   |	- Weekly Session 6pm every Tuesday | | | | | | Next meeting - Aug 13 Sunday (Pending - to be confirmed in Discord)|
