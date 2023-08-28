@@ -1,10 +1,11 @@
+import meteoriteData from 'public/meteoriteData.json'
 export default function ResetButton(props) {
-    const {setMassSliderV1, setMassSliderV2,setYearSliderV1,setYearSliderV2, setNameSearch,setRecSearch,setSort, rawNasaData, setFilteredDataSet} = props
+    const {setMassSliderV1, setMassSliderV2,setYearSliderV1,setYearSliderV2, setNameSearch,setRecSearch,setSort, setFilteredDataSet} = props
 
 
     // Reset sorts and filters back to default //
     function resetFilters() {
-        // need to add in slider value reset also
+        // need to add in slider value reset!!
         setMassSliderV1(0);
         setMassSliderV2(23000000);
         setYearSliderV1(500);
@@ -12,8 +13,7 @@ export default function ResetButton(props) {
         setNameSearch("");
         setRecSearch(""); 
         setSort("ATOZ");
-        setFilteredDataSet(rawNasaData)
-        console.log("filters reset!")
+        setFilteredDataSet(meteoriteData)
     }; 
 
 
