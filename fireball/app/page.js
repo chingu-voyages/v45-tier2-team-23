@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <main>
       <h1 className='text-center'>FireBalls!</h1>
-      <Search setFilteredDataSet={setFilteredDataSet} rawNasaData={rawNasaData} />
+      <Search setFilteredDataSet={setFilteredDataSet} filteredDataSet={filteredDataSet} />
     </main>
   )
 }
