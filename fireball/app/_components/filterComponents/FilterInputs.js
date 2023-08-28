@@ -1,18 +1,35 @@
 export default function FilterInputs(props) {
-    const {filterDataSet, nameSearch,recSearch, setNameSearch,setRecSearch} = props
+    const {filteredDataSet, setFilteredDataSet, nameSearch,recSearch, setNameSearch,setRecSearch} = props
+    // const {filterDataSet, nameSearch,recSearch, setNameSearch,setRecSearch} = props
 
 
+    // Function to handle text input for Name field
     function handleNameInput(e) {
         const newText = e.target.value;
+        console.log(newText);
         setNameSearch(newText);
         filterDataSet(newText,recSearch);
     }
 
 
+    // Function to handle text input for RecClass field
     function handleRecInput(e) {
         const newRec = e.target.value;
+        console.log(newRec);
         setRecSearch(newRec);
         filterDataSet(nameSearch,newRec);
+    }
+
+
+    // Triggered from filter inputs to manipulate data variable //
+    function filterDataSet(searchText,reccText) {
+        const filteredData = [...filteredDataSet].filter(elem => {
+            return elem.name.toLowerCase().includes(searchText.toLowerCase())
+        }).filter(elem => {
+            return elem.recclass.toLowerCase().includes(reccText.toLowerCase())
+        })
+        setFilteredDataSet(filteredData);
+        console.log(filteredData);
     }
 
 

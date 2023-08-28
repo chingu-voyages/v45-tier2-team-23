@@ -5,9 +5,10 @@ import Search from "./_components/filterComponents/Search";
 
 
 export default function Home() {
-  const rawNasaData = meteoriteData
-  const [ filteredDataSet, setFilteredDataSet ] = useState(rawNasaData);
+
+  const [ filteredDataSet, setFilteredDataSet ] = useState(meteoriteData);
   console.log(filteredDataSet) // for testing data flow // remove later once a display component is inserted
+
 
   return (
     <main>
