@@ -1,8 +1,8 @@
 export default function SortDropdown(props) {
-    const { setSort, Sort, sortDataSet } = props
+    const { setFilteredDataSet, filteredDataSet, Sort, setSort} = props
 
 
-//  Sorting Functions from dropdown
+// //  Sorting Functions from dropdown based on type selected
 const SortType = { 
     ATOZ: (a,b) => a.name.localeCompare(b.name),
     ZTOA: (a,b) => b.name.localeCompare(a.name),
@@ -13,7 +13,7 @@ const SortType = {
         if (a.mass === b) {
             return 0;
         }
-        // nulls and ydefuned sort after anything else
+        // nulls and undefined sort after anything else
         if (a.mass === null || a.mass === undefined) {
             return 1;
         }
@@ -41,10 +41,11 @@ const SortType = {
 };
 
 
-    function handleSort(e) {
-        setSort(e.target.value);
-        // const sortFactor = e.target.value;   // add in switch to compare and return sort function
-        // sortDataSet(sortFactor)
+function handleSort(e) {
+    const sortFactor = e.target.value;
+    setSort(sortFactor);
+    const sortedData =[...filteredDataSet].sort(SortType[sortFactor]);
+    setFilteredDataSet(sortedData);
     }
 
 
