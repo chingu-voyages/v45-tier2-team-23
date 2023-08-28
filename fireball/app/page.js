@@ -16,7 +16,7 @@ const [ yearSliderV1, setYearSliderV1 ] = useState(500);
 const [ yearSliderV2, setYearSliderV2 ] = useState(2023);
 
 // manipulate data variable  //
-// const filteredData = [...meteoriteData].filter(filterName).filter(filterRecClass)
+const filteredData = [...meteoriteData].filter(filterName).filter(filterRecClass)
 console.log(filteredData)
 
 // filter name with text input
