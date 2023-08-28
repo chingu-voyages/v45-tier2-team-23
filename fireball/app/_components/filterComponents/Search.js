@@ -15,21 +15,10 @@ export default function Search(props) {
     const [ recSearch,setRecSearch] = useState("");
 
 
-    // Triggered from filter inputs to manipulate data variable //
-    function filterDataSet(searchText,reccText) {
-        const filteredData = [...filteredDataSet].filter(elem => {
-            return elem.name.toLowerCase().includes(searchText.toLowerCase())
-        }).filter(elem => {
-            return elem.recclass.toLowerCase().includes(reccText.toLowerCase())
-        })
-        setFilteredDataSet(filteredData);
-    }
-
-
     return (
         <div className='flex flex-col w-52 p-4 border border-slate-700' >
             <SortDropdown  setFilteredDataSet={setFilteredDataSet} filteredDataSet={filteredDataSet} Sort={Sort} setSort={setSort}/>
-            <FilterInputs filterDataSet={filterDataSet} nameSearch={nameSearch} setNameSearch={setNameSearch} recSearch={recSearch} setRecSearch={setRecSearch}/>
+            <FilterInputs filteredDataSet={filteredDataSet} setFilteredDataSet={setFilteredDataSet} nameSearch={nameSearch} setNameSearch={setNameSearch} recSearch={recSearch} setRecSearch={setRecSearch}/>
             <ResetButton setMassSliderV1={setMassSliderV1} setMassSliderV2={setMassSliderV2} setYearSliderV1={setYearSliderV1} setYearSliderV2={setYearSliderV2} setNameSearch={setNameSearch} setRecSearch={setRecSearch} setSort={setSort} filteredDataSet={filteredDataSet} setFilteredDataSet={setFilteredDataSet} />
         </div>
     )
