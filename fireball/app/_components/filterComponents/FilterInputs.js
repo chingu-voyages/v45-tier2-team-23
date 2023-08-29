@@ -1,12 +1,11 @@
 import meteoriteData from 'public/meteoriteData.json'
 export default function FilterInputs(props) {
-    const {filteredDataSet, setFilteredDataSet, nameSearch,recSearch, setNameSearch,setRecSearch} = props
+    const {setFilteredDataSet, nameSearch,recSearch, setNameSearch,setRecSearch} = props
 
 
     // Function to handle text input for Name field
     function handleNameInput(e) {
         const newName = e.target.value;
-        console.log(newName);
         setNameSearch(newName);
         filterDataSet(newName,recSearch);
     }
@@ -15,7 +14,6 @@ export default function FilterInputs(props) {
     // Function to handle text input for RecClass field
     function handleRecInput(e) {
         const newRec = e.target.value;
-        console.log(newRec);
         setRecSearch(newRec);
         filterDataSet(nameSearch,newRec);
     }
@@ -29,7 +27,6 @@ export default function FilterInputs(props) {
             return meteorObj.recclass.toLowerCase().includes(recInput.toLowerCase())
         })
         setFilteredDataSet(filteredData);
-        console.log(filteredData);
     }
 
 
