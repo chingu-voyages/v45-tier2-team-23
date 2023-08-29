@@ -4,8 +4,9 @@ import React, { useEffect, useRef } from "react";
 
 export default function Sliders (props){
     const {massSliderV1, setMassSliderV1, massSliderV2, setMassSliderV2, yearSliderV1, setYearSliderV1, yearSliderV2, setYearSliderV2, setFilteredDataSet} = props
-    
-    
+
+
+    // Required To Prevent "ReferenceError: HTMLElement"
     useEffect(() =>{
         import('toolcool-range-slider');
     });
@@ -31,14 +32,10 @@ export default function Sliders (props){
 
     // Mass Slider Filter Function //
     function MassSliderFilter(massSliderV1,massSliderV2) {
-        console.log("HERE!!");
-        console.log("value1",massSliderV1);
-        console.log("value2",massSliderV2);
         const filteredData = [...meteoriteData].filter(elem => {
             return elem.mass > massSliderV1 && elem.mass < massSliderV2; 
         })
         setFilteredDataSet(filteredData);
-        console.log("mass",filteredData);
     }
 
 
@@ -62,16 +59,12 @@ export default function Sliders (props){
 
         // Year Slider Filter Function //
         function YearSliderFilter(YearVal1,YearVal2) {
-            console.log("HERE!!");
-            console.log("value1",YearVal1);
-            console.log("value2",YearVal2);
             const filteredData = [...meteoriteData].filter(elem => {
                     const date = new Date(elem.year)
                     const year = date.getFullYear();
                     return year > YearVal1 && year < YearVal2 ;
             })
             setFilteredDataSet(filteredData);
-            console.log("year",filteredData);
         }
 
 
@@ -86,7 +79,7 @@ export default function Sliders (props){
             {/* Mass Slider */}
             <div className="my-2">
                 <tc-range-slider
-                    // FUNCTION //
+                    // Function Attributes //
                     id="MassSlider"
                     ref={ massSliderRef }
                     value-label="#value-1"
@@ -98,7 +91,7 @@ export default function Sliders (props){
                     round="0"
                     min="0" 
                     max="23000000" 
-                    // STYLE //
+                    // Style Attributes //
                     slider-width="150px"
                     slider-height="5px"
                     pointer-width="10px"
@@ -129,7 +122,7 @@ export default function Sliders (props){
             {/* Year Slider */}
             <div className="SliderContainer">
                 <tc-range-slider
-                    // FUNCTION //
+                    // Function Attributes //
                     id="YearSlider"
                     ref={ yearSliderRef }
                     value-label="#value-1"
@@ -141,7 +134,7 @@ export default function Sliders (props){
                     round="0"
                     min="500" 
                     max="2023" 
-                    // STYLE //
+                    // Style Attributes //
                     slider-width="150px"
                     slider-height="5px"
                     pointer-width="10px"
