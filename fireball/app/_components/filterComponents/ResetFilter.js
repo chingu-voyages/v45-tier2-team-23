@@ -5,7 +5,12 @@ export default function ResetButton(props) {
 
     // Reset sorts and filters back to default //
     function resetFilters() {
-        // need to add in slider value reset!!
+        const slider = document.getElementById('MassSlider');
+        const slider2 = document.getElementById('YearSlider');
+        slider.value1 = 0;
+        slider.value2 = 23000000;
+        slider2.value1 = 500;
+        slider2.value2 = 2023;
         setMassSliderV1(0);
         setMassSliderV2(23000000);
         setYearSliderV1(500);
