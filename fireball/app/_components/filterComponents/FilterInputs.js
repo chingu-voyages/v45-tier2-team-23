@@ -1,14 +1,14 @@
+import meteoriteData from 'public/meteoriteData.json'
 export default function FilterInputs(props) {
     const {filteredDataSet, setFilteredDataSet, nameSearch,recSearch, setNameSearch,setRecSearch} = props
-    // const {filterDataSet, nameSearch,recSearch, setNameSearch,setRecSearch} = props
 
 
     // Function to handle text input for Name field
     function handleNameInput(e) {
-        const newText = e.target.value;
-        console.log(newText);
-        setNameSearch(newText);
-        filterDataSet(newText,recSearch);
+        const newName = e.target.value;
+        console.log(newName);
+        setNameSearch(newName);
+        filterDataSet(newName,recSearch);
     }
 
 
@@ -22,11 +22,11 @@ export default function FilterInputs(props) {
 
 
     // Triggered from filter inputs to manipulate data variable //
-    function filterDataSet(searchText,reccText) {
-        const filteredData = [...filteredDataSet].filter(elem => {
-            return elem.name.toLowerCase().includes(searchText.toLowerCase())
-        }).filter(elem => {
-            return elem.recclass.toLowerCase().includes(reccText.toLowerCase())
+    function filterDataSet(nameInput,recInput) {
+        const filteredData = [...meteoriteData].filter(meteorObj => {
+            return meteorObj.name.toLowerCase().includes(nameInput.toLowerCase())
+        }).filter(meteorObj => {
+            return meteorObj.recclass.toLowerCase().includes(recInput.toLowerCase())
         })
         setFilteredDataSet(filteredData);
         console.log(filteredData);
