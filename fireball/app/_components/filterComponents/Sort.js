@@ -1,51 +1,12 @@
 export default function SortDropdown(props) {
-    const { setFilteredDataSet, filteredDataSet, Sort, setSort} = props
+    const { setFilteredDataSet, filteredDataSet, Sort, setSort, setSortingMethod} = props
 
 
-// //  Sorting Functions from dropdown based on type selected
-const SortType = { 
-    ATOZ: (a,b) => a.name.localeCompare(b.name),
-    ZTOA: (a,b) => b.name.localeCompare(a.name),
-    OLDEST: (a,b) => a.year > b.year ? 1 : -1,
-    NEWEST: (a,b) => a.year < b.year ? 1 : -1,
-    LOMASS: (a,b) => {    
-        // equal items sort equally
-        if (a.mass === b) {
-            return 0;
-        }
-        // nulls and undefined sort after anything else
-        if (a.mass === null || a.mass === undefined) {
-            return 1;
-        }
-        if (b.mass === null || b.mass === undefined ) {
-            return -1;
-        }
-        // compare whats left
-        return a.mass - b.mass
-    },
-    HIMASS: (a,b) =>
-    {    // equal items sort equally
-        if (a.mass === b.mass) {
-            return 0;
-        }
-        // nulls and undefined sort after anything else
-        if (a.mass === null || a.mass === undefined) {
-            return 1;
-        }
-        if (b.mass === null || b.mass === undefined) {
-            return -1;
-        }
-        // compare whats left
-        return b.mass - a.mass
-    }
-};
-
-
+// Sort Handler
 function handleSort(e) {
     const sortFactor = e.target.value;
     setSort(sortFactor);
-    const sortedData =[...filteredDataSet].sort(SortType[sortFactor]);
-    setFilteredDataSet(sortedData);
+    setSortingMethod(sortFactor);
     }
 
 
