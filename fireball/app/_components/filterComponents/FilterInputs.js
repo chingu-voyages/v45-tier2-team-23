@@ -1,3 +1,4 @@
+import meteoriteData from 'public/meteoriteData.json'
 export default function FilterInputs(props) {
     const {filteredDataSet, setFilteredDataSet, nameSearch,recSearch, setNameSearch,setRecSearch} = props
     // const {filterDataSet, nameSearch,recSearch, setNameSearch,setRecSearch} = props
@@ -23,7 +24,7 @@ export default function FilterInputs(props) {
 
     // Triggered from filter inputs to manipulate data variable //
     function filterDataSet(searchText,reccText) {
-        const filteredData = [...filteredDataSet].filter(elem => {
+        const filteredData = [...meteoriteData].filter(elem => {
             return elem.name.toLowerCase().includes(searchText.toLowerCase())
         }).filter(elem => {
             return elem.recclass.toLowerCase().includes(reccText.toLowerCase())
