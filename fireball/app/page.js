@@ -16,6 +16,16 @@ export default function Home() {
     <main>
       <h1 className='text-center'>FireBalls!</h1>
       <Search setFilteredDataSet={setFilteredDataSet} filteredDataSet={filteredDataSet} setSortingMethod={setSortingMethod}/>
+
+      {Results.map((nasaObj)=>{
+                            const date = new Date(nasaObj.year)
+                            const year = date.getFullYear();
+                            return (
+                        <div>
+                            <p className="m-4" key={nasaObj.id}> Name: {nasaObj.name} , Year: {year}, <br />RecClass: {nasaObj.recclass} , Mass: {nasaObj.mass}</p>
+                        </div>
+                            )
+                        })}
     </main>
   )
 }
