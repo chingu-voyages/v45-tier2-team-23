@@ -1,5 +1,3 @@
-'use client';
-
 export default function TableRow({ nasaObj }) {
   return (
     <tr className='border border-slate-700'>

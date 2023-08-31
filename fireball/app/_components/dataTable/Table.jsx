@@ -1,4 +1,3 @@
-'use client';
 import TableRow from './TableRow';
 
 export default function Table({ results }) {
