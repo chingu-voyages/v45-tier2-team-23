@@ -14,14 +14,21 @@ export default function Home() {
   
 
   return (
-    <main className='flex'>
-      <Search
-        setFilteredDataSet={setFilteredDataSet}
-        filteredDataSet={filteredDataSet}
-        setSortingMethod={setSortingMethod}
-      />
-      <Table results={results} />
-      <Choropleth results={results} />
+    <main className="flex flex-col md:flex-row items-center">
+      <div className="md:mr-4 mb-4 md:mb-0">
+        <Search
+          setFilteredDataSet={setFilteredDataSet}
+          filteredDataSet={filteredDataSet}
+          setSortingMethod={setSortingMethod}
+        />
+      </div>
+      
+      <div className="w-full md:w-1/2">
+        <Choropleth results={results} />
+      </div>
+      <div className="w-full md:w-1/2">
+        <Table results={results} />
+      </div>
     </main>
   );
 }

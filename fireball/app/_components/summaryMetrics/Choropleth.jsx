@@ -43,7 +43,8 @@ export default function Choropleth({ width, height, results }) {
     
     // Color scale and domain
     const color = d3.scaleSequential(d3.interpolatePuRd)
-        .domain([0, maxStrikes])
+        .domain([0, maxStrikes == 0 ? 1 : maxStrikes])
+        
         
     // Projection type and sizing/positioning
     const projection = d3
@@ -53,7 +54,7 @@ export default function Choropleth({ width, height, results }) {
         
     // Instantiates path generator function
     const geoPathGenerator = d3.geoPath().projection(projection);
-
+    console.log(meteoritesPerCountry)
     // Map over each geoJson feature and bind color and country to each other.
     const allSvgPaths = geoJson.features.map((shape) => {
         // If the country that we are creating the path for exists in our data set grab the number of strikes associated with it, else give it a null value
