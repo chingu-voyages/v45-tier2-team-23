@@ -72,7 +72,7 @@ export default function Choropleth({ width, height, results }) {
     });
 
     return (
-        <svg viewBox="0 0 650 400" width='100%' height='100%' style={{border: '1px solid black'}}>
+        <svg viewBox="0 0 650 400" width="100%" height="100%" className="border border-slate-700">
             {allSvgPaths}
         </svg>
     );
