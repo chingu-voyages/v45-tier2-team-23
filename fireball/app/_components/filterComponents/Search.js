@@ -17,7 +17,7 @@ export default function Search(props) {
 
 
     return (
-        <div className="flex border border-slate-700 ">
+        <div className="flex flex-col border items-center border-slate-700 min-w-fit xl:flex-row xl:justify-center lg:flex-col sm:flex-row sm:justify-center">
             <div className='flex flex-col justify-center w-52 p-4' >
                 <SortDropdown  setFilteredDataSet={setFilteredDataSet} filteredDataSet={filteredDataSet} Sort={Sort} setSort={setSort} setSortingMethod={setSortingMethod}/>
                 <FilterInputs setFilteredDataSet={setFilteredDataSet} nameSearch={nameSearch} setNameSearch={setNameSearch} recSearch={recSearch} setRecSearch={setRecSearch} />

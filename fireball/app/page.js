@@ -11,22 +11,20 @@ export default function Home() {
   const [sortingMethod, setSortingMethod] = useState(undefined);
   const results = filteredDataSet.sort(SortType[sortingMethod]);
 
-  
-
   return (
-    <main className="flex flex-col  lg:flex-row justify-center items-center  gap-4 m-12">
-      <div className="flex basis-2/3 lg:min-w-[500px] min-w-[630px]">
+    <main className="lg:grid lg:grid-cols-10 flex flex-col m-12 gap-4">
+      <div className="lg:col-span-6  lg:min-w-[500px] min-w-[300px]">
         <Choropleth results={results} />
       </div>
-      <div className="flex basis-1/3 flex-col items-center gap-4 ">
-        <div className="basis-1/3">
+      <div className="lg:col-span-4 flex flex-col justify-start gap-4">
+        <div className="">
           <Search
             setFilteredDataSet={setFilteredDataSet}
             filteredDataSet={filteredDataSet}
             setSortingMethod={setSortingMethod}
           />
         </div>
-        <div className="basis-2/3 ">
+        <div className="">
           <Table results={results} />
         </div>
       </div>
