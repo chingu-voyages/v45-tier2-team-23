@@ -18,6 +18,7 @@ export default function Home() {
         setSortingMethod={setSortingMethod}
       />
       <Table results={results} />
+      <Display results={results} />
     </main>
   );
 }
