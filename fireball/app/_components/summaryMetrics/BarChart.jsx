@@ -18,7 +18,6 @@ function BarChart({ results }) {
     const year = new Date(nasaObj.year).getFullYear();
     yearCounts[year] = (yearCounts[year] || 0) + 1;
   });
-  console.log(yearCounts);
 
   const chartOptions = {
     scales: {

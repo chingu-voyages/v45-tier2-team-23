@@ -3,7 +3,7 @@ import Map from "./Map";
 import BarChart from "./BarChart";
 
 const Display = ({ results }) => {
-  const [graphicDisplay, setGraphicDisplay] = useState("graph");
+  const [graphicDisplay, setGraphicDisplay] = useState("map");
 
   return (
     <div className="flex-auto">
