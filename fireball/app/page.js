@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import meteoriteData from 'public/meteoriteData.json';
 import Search from './_components/filterComponents/Search';
 import Table from './_components/dataTable/Table';
+import Display from './_components/summary_metrics/Display'
 import { SortType } from './_components/filterComponents/SortType';
 
 export default function Home() {
