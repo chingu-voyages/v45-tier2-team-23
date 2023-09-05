@@ -1,4 +1,4 @@
-// File: C:\Users\cgbri\Desktop\Chingu Group Project\v45-tier2-team-23\fireball\app\layout.js
+// File: C:\Users\James Schulz\Desktop\Chingu-v45-Fireball\v45-tier2-team-23\fireball\app\layout.js
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
