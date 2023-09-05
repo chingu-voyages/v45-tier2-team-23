@@ -2,7 +2,7 @@ import { useState } from "react";
 import Map from "./Map";
 import BarChart from "./BarChart";
 
-const Display = ({ results }) => {
+export default function Display({ results }) {
   const [graphicDisplay, setGraphicDisplay] = useState("map");
 
   return (
@@ -26,5 +26,3 @@ const Display = ({ results }) => {
     </div>
   );
 };
-
-export default Display;

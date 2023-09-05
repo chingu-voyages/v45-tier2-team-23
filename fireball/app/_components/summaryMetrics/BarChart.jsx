@@ -2,7 +2,7 @@ import { Bar } from "react-chartjs-2";
 import { useState, useEffect } from "react";
 import Chart from "chart.js/auto";
 
-function BarChart({ results }) {
+export default function BarChart({ results }) {
   const [chartType, setChartType] = useState("year");
 
   const customStyles = {
@@ -119,5 +119,3 @@ function BarChart({ results }) {
     </div>
   );
 }
-
-export default BarChart;
