@@ -156,9 +156,9 @@ export default function Map({ results }) {
               ? `Country: ${d.country}<br/>Meteorite Strikes: ${
                   d.numStrikes ? d.numStrikes : 'N/A'
                 }`
-              : `Country: ${d.country}<br/>Average Mass: ${Math.round(
-                  d.numStrikes
-                )}`
+              : `Country: ${d.country}<br/>Average Mass: ${
+                  Math.round(d.numStrikes) ? Math.round(d.numStrikes) : 'N/A'
+                }`
           )
           .style('left', e.pageX + 'px')
           .style('top', e.pageY - 28 + 'px');
