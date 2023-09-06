@@ -149,12 +149,13 @@ export default function Map({ results }) {
 
     paths
       .on('mouseover', (e, d) => {
-        console.log('Mouse over:', d);
         tooltip.transition().duration(200).style('opacity', 0.9);
         tooltip
           .html(
             chartType === 'totalStrikes'
-              ? `Country: ${d.country}<br/>Meteorite Strikes: ${d.numStrikes}`
+              ? `Country: ${d.country}<br/>Meteorite Strikes: ${
+                  d.numStrikes ? d.numStrikes : 'N/A'
+                }`
               : `Country: ${d.country}<br/>Average Mass: ${Math.round(
                   d.numStrikes
                 )}`
@@ -163,7 +164,6 @@ export default function Map({ results }) {
           .style('top', e.pageY - 28 + 'px');
       })
       .on('mouseout', (d) => {
-        console.log('Mouse out:', d);
         tooltip.transition().duration(500).style('opacity', 0);
       });
 
