@@ -5,13 +5,6 @@ import Chart from "chart.js/auto";
 function BarChart({ results }) {
   const [chartType, setChartType] = useState("year");
 
-  const customStyles = {
-    canvas: {
-      width: "100%", // Use 100% width to fill the parent container
-      height: "auto", // Allow the height to adjust based on content
-    },
-  };
-
   // Bar chart - year
   const yearCounts = {};
   results.forEach((nasaObj) => {
@@ -44,6 +37,7 @@ function BarChart({ results }) {
       {
         label: "Meteorite Strikes",
         data: Object.values(yearCounts),
+        backgroundColor: "#cf9bcb",
       },
     ],
   };
@@ -79,6 +73,7 @@ function BarChart({ results }) {
       {
         label: "Meteorite Strikes",
         data: Object.values(recclassCounts),
+        backgroundColor: "#cf9bcb",
       },
     ],
   };
