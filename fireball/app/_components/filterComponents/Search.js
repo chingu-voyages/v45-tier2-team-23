@@ -17,11 +17,15 @@ export default function Search(props) {
 
 
     return (
-        <div className='flex flex-col w-52 p-4 border border-slate-700' >
-            <SortDropdown  setFilteredDataSet={setFilteredDataSet} filteredDataSet={filteredDataSet} Sort={Sort} setSort={setSort} setSortingMethod={setSortingMethod}/>
-            <FilterInputs setFilteredDataSet={setFilteredDataSet} nameSearch={nameSearch} setNameSearch={setNameSearch} recSearch={recSearch} setRecSearch={setRecSearch}/>
-            <ResetButton setMassSliderV1={setMassSliderV1} setMassSliderV2={setMassSliderV2} setYearSliderV1={setYearSliderV1} setYearSliderV2={setYearSliderV2} setNameSearch={setNameSearch} setRecSearch={setRecSearch} setSort={setSort} filteredDataSet={filteredDataSet} setFilteredDataSet={setFilteredDataSet} />
+        <div className="flex flex-col border items-center border-slate-700 min-w-fit xl:flex-row xl:justify-center lg:flex-col sm:flex-row sm:justify-center">
+            <div className='flex flex-col justify-center w-52 p-4' >
+                <SortDropdown  setFilteredDataSet={setFilteredDataSet} filteredDataSet={filteredDataSet} Sort={Sort} setSort={setSort} setSortingMethod={setSortingMethod}/>
+                <FilterInputs setFilteredDataSet={setFilteredDataSet} nameSearch={nameSearch} setNameSearch={setNameSearch} recSearch={recSearch} setRecSearch={setRecSearch} />
+                <ResetButton setMassSliderV1={setMassSliderV1} setMassSliderV2={setMassSliderV2} setYearSliderV1={setYearSliderV1} setYearSliderV2={setYearSliderV2} setNameSearch={setNameSearch} setRecSearch={setRecSearch} setSort={setSort} filteredDataSet={filteredDataSet} setFilteredDataSet={setFilteredDataSet} />
+            </div>
+            <div className='flex flex-col justify-center w-52 p-4' >
             <Sliders massSliderV1={massSliderV1} setMassSliderV1={setMassSliderV1} massSliderV2={massSliderV2} setMassSliderV2={setMassSliderV2} yearSliderV1={yearSliderV1} setYearSliderV1={setYearSliderV1} yearSliderV2={yearSliderV2} setYearSliderV2={setYearSliderV2} setFilteredDataSet={setFilteredDataSet} />
+            </div>
         </div>
     )
 }

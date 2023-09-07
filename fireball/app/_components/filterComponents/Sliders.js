@@ -69,15 +69,15 @@ export default function Sliders (props){
 
 
     return (
-        <div className="flex flex-col justify-center ms-2">
+        <div className="flex flex-col justify-center ms-2 ">
             {/* Mass Label and Selected Values */}
-            <div className="TextValueContainer">
-                <h5 className="mx-2 mt-4">Filter Mass Range</h5>
+            <div className="my-1 " >
+                <h5 className="mx-2 mt-4 ">Filter Mass Range</h5>
                 <p className="mx-2">Start: {massSliderV1}</p>
                 <p className="mx-2">End: {massSliderV2}</p>
             </div>
             {/* Mass Slider */}
-            <div className="my-2">
+            <div className="my-1">
                 <tc-range-slider
                     // Function Attributes //
                     id="MassSlider"
@@ -114,13 +114,13 @@ export default function Sliders (props){
 
 
             {/* Year Label and Selected Values */}
-            <div className="my-2">
+            <div className="my-1">
                 <h5 className="mx-2 mt-4">Filter Year Range</h5>
                 <p className="mx-2">Start : &nbsp;{yearSliderV1}</p>
                 <p className="mx-2">End : {yearSliderV2}</p>
             </div>
             {/* Year Slider */}
-            <div className="SliderContainer">
+            <div className="my-1">
                 <tc-range-slider
                     // Function Attributes //
                     id="YearSlider"
