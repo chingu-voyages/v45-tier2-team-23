@@ -21,6 +21,7 @@
     "react-chartjs-2": "^5.2.0",
     "react-data-table-component": "^7.5.4",
     "react-dom": "18.2.0",
+    "styled-components": "^6.0.7",
     "tailwindcss": "3.3.3",
     "toolcool-range-slider": "^4.0.28"
   }
