@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
+import isPropValid from '@emotion/is-prop-valid';
 import { StyleSheetManager } from 'styled-components';
 
 export default function Table({ results }) {
@@ -46,10 +47,8 @@ export default function Table({ results }) {
     },
   ];
 
-  const shouldForwardProp = (prop) => !prop.startsWith('$');
-
   return (
-    <StyleSheetManager shouldForwardProp={shouldForwardProp}>
+    <StyleSheetManager shouldForwardProp={isPropValid}>
       <DataTable columns={columns} data={results} fixedHeader pagination />
     </StyleSheetManager>
   );
