@@ -12,19 +12,19 @@ export default function Home() {
   const results = filteredDataSet.sort(SortType[sortingMethod]);
 
   return (
-    <main className="lg:grid lg:grid-cols-10 flex flex-col m-12 gap-4">
-      <div className="lg:col-span-6  lg:min-w-[500px] min-w-[300px]">
+    <main className='lg:grid lg:grid-cols-10 flex flex-col m-12 gap-4'>
+      <div className='lg:col-span-6  lg:min-w-[500px] min-w-[300px]'>
         <Display results={results} />
       </div>
-      <div className="lg:col-span-4 flex flex-col justify-start gap-4">
-        <div className="">
+      <div className='lg:col-span-4 flex flex-col justify-start gap-4'>
+        <div className=''>
           <Search
             setFilteredDataSet={setFilteredDataSet}
             filteredDataSet={filteredDataSet}
             setSortingMethod={setSortingMethod}
           />
         </div>
-        <div className="">
+        <div className=''>
           <Table results={results} />
         </div>
       </div>
