@@ -86,6 +86,7 @@ export default function BarChart({ results }) {
     <div>
       <div className={`${chartType === "composition" ? "hidden" : ""}`}>
         <Bar data={chartData} options={chartOptions} className="w-100" />
+        <p>This is a test</p>
       </div>
       <div className={`${chartType === "year" ? "hidden" : ""}`}>
         <Bar
