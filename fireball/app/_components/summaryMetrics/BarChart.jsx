@@ -43,6 +43,7 @@ export default function BarChart({ results }) {
       {
         label: "Meteorite Strikes",
         data: Object.values(yearCounts),
+        backgroundColor: "#77042b",
       },
     ],
   };
@@ -78,6 +79,7 @@ export default function BarChart({ results }) {
       {
         label: "Meteorite Strikes",
         data: Object.values(recclassCounts),
+        backgroundColor: "#77042b",
       },
     ],
   };
@@ -86,7 +88,6 @@ export default function BarChart({ results }) {
     <div>
       <div className={`${chartType === "composition" ? "hidden" : ""}`}>
         <Bar data={chartData} options={chartOptions} className="w-100" />
-        <p>This is a test</p>
       </div>
       <div className={`${chartType === "year" ? "hidden" : ""}`}>
         <Bar
