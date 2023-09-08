@@ -35,28 +35,28 @@ export default function Map({ results }) {
     useEffect(() => {
         
         if (chartType === "totalStrikes") {
-        // Create a country: strikeNum object made up of just the filtered data
-        const newMeteoritesPerCountry = {}
-        results.forEach(elem =>  {
-            if ('locationInfo' in elem) {
-                const country = elem.locationInfo.country;
-                if (country) {
-                    if (newMeteoritesPerCountry[country]) {
-                        newMeteoritesPerCountry[country] += 1;
-                    } else {
-                        newMeteoritesPerCountry[country] = 1;
+            // Create a country: strikeNum object made up of just the filtered data
+            const newMeteoritesPerCountry = {}
+            results.forEach(elem =>  {
+                if ('locationInfo' in elem) {
+                    const country = elem.locationInfo.country;
+                    if (country) {
+                        if (newMeteoritesPerCountry[country]) {
+                            newMeteoritesPerCountry[country] += 1;
+                        } else {
+                            newMeteoritesPerCountry[country] = 1;
+                        }
                     }
                 }
-            }
-        })
+            })
 
-        
-        // Update strikeNum in meteoritesPerCountry with new values
-        for ( let key in meteoritesPerCountry ) {
-            if (meteoritesPerCountry[key] !== null) {
-                meteoritesPerCountry[key] = newMeteoritesPerCountry[key] || 0;
+            
+            // Update strikeNum in meteoritesPerCountry with new values
+            for ( let key in meteoritesPerCountry ) {
+                if (meteoritesPerCountry[key] !== null) {
+                    meteoritesPerCountry[key] = newMeteoritesPerCountry[key] || 0;
+                }
             }
-        }
 
         }
         else {
@@ -67,11 +67,11 @@ export default function Map({ results }) {
                     if (country) {
                         if (avgMassPerCountry[country]) {
                                 if (elem.mass) {
-                                    avgMassPerCountry[country] += Number(elem.mass);
+                                    avgMassPerCountry[country] += Number(elem.mass)/1000;
                                 }
                         } else {
                             if (elem.mass) {
-                                avgMassPerCountry[country] = Number(elem.mass);
+                                avgMassPerCountry[country] = Number(elem.mass)/1000;
                             }
                         }
                     }
@@ -87,19 +87,17 @@ export default function Map({ results }) {
 
         } 
         
-        // Conver to n array where each element takes the form [country: "", numStrikes: _]
+        // Conver to an array where each element takes the form [country: "", countryStrikeInfo: _]
         // This format is necessary for use when mapping data to countries
-        
-        const meteoritesPerCountryArr = Object.entries(meteoritesPerCountry).map(([country, numStrikes]) => ({
+        const meteoritesPerCountryArr = Object.entries(meteoritesPerCountry).map(([country, countryStrikeInfo]) => ({
             country,
-            numStrikes
+            countryStrikeInfo
         }));
-
-        console.log(meteoritesPerCountryArr);
         
-        // Maximun number of strikes used to set top of the domain
-        const maxStrikes = Math.max(...Object.values(meteoritesPerCountry));
-
+        // Maximun number of strikes or maximum average mass used to set top of the domain
+        const max = Math.max(...Object.values(meteoritesPerCountry));
+        const min = Math.min(...Object.values(meteoritesPerCountry));
+        
         // Create projection
         const projection = d3
             .geoEqualEarth()
@@ -108,11 +106,12 @@ export default function Map({ results }) {
 
         // Path generator function
         const geoPathGenerator = d3.geoPath().projection(projection);
-        
+        console.log("max:", max)
         // Color scale and domain
         const color = d3.scaleSequential(d3.interpolatePuRd)
-            .domain([0, maxStrikes == 0 ? 1 : maxStrikes])
-
+            .domain([0, max == 0 ? 1 : max])
+        console.log(meteoritesPerCountryArr)
+        console.log(color(2))
         // Grab the SVG element
         const svg = d3.select(svgRef.current);
 
@@ -133,20 +132,21 @@ export default function Map({ results }) {
             })))
             .attr("stroke", "lightgrey")
             .attr("stroke-width", 0.3)
-            .attr("fill", elem => elem.numStrikes === null ? "lightgrey" : color(elem.numStrikes));
+            .attr("fill", elem => elem.countryStrikeInfo === null ? "lightgrey" : elem.countryStrikeInfo === 0 ? "#f9f9f9" : color(elem.countryStrikeInfo));
         
-        paths.attr("fill", elem => elem.numStrikes === null ? "lightgrey" : color(elem.numStrikes));
+        paths.attr("fill", elem => elem.countryStrikeInfo === null ? "lightgrey" : elem.countryStrikeInfo === 0 ? "#f9f9f9" : color(elem.countryStrikeInfo));
 
         // set legend
         svg.append("g")
             .attr("class", "legendSequential")
-            .attr("transform", "translate(20,250)")
+            .attr("transform", "translate(20,200)")
             .attr("style","font-size: 0.5rem")
 
         const legendSequential = legendColor()
             .shapeWidth(15)
-            .cells(8)
-            .labelFormat("1.0f")
+            .cells(getCells(max))
+            .title(chartType === "avgMass" ? "kgs" : "meteorites")
+            .labelFormat((chartType === "avgMass" && max < 100) ? ".2f" : "1.0f")
             .orient("vertical")
             .scale(color)
         
@@ -186,3 +186,11 @@ export default function Map({ results }) {
     );
 }
 
+function getCells(max) {
+    const cells = max === 0 ? [0] : [0,max*0.1, max*0.25, max*0.5, max*0.75, max]; 
+    
+    
+    return max > 100 
+        ? cells.map(elem => Math.round(elem/10)*10)
+        :  cells;
+}
