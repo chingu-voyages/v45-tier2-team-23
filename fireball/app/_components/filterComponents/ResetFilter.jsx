@@ -23,8 +23,8 @@ export default function ResetButton(props) {
 
 
     return (
-        <>
-            <button className="border border-slate-700 bg-slate-100 test-slate-300 text-slate-700 p-1 hover:bg-slate-700 hover:text-slate-100" onClick={(e) => (resetFilters())}>Reset All Filters</button>
-        </>
+        <div>
+            <button className=" w-40 bg-slate-700 text-slate-100 hover:bg-slate-100 hover:text-slate-700 py-1" onClick={(e) => (resetFilters())}>Reset</button>
+        </div>
     )
 }
