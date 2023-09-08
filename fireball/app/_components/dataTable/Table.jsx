@@ -2,17 +2,19 @@ import { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
 import isPropValid from '@emotion/is-prop-valid';
 import { StyleSheetManager } from 'styled-components';
+import LoadingAnimation from '../loadingAnimation/LoadingAnimation';
 
 export default function Table({ results }) {
   const [loader, setLoader] = useState(true);
+  const [rows, setRows] = useState();
 
   useEffect(() => {
-    setLoader(false);
+    const timeout = setTimeout(() => {
+      setRows(results);
+      setLoader(false);
+    }, 1000);
+    return () => clearTimeout(timeout);
   }, []);
-
-  if (loader) {
-    return <div>Loading...</div>;
-  }
 
   const columns = [
     {
@@ -47,9 +49,28 @@ export default function Table({ results }) {
     },
   ];
 
+  const tableCustomStyles = {
+    headRow: {
+      style: {
+        color: '#FFFFFF',
+        backgroundColor: 'rgba(16, 69, 71, 1)',
+      },
+    },
+  };
+
   return (
     <StyleSheetManager shouldForwardProp={isPropValid}>
-      <DataTable columns={columns} data={results} fixedHeader pagination />
+      <DataTable
+        columns={columns}
+        data={rows}
+        fixedHeader
+        pagination
+        highlightOnHover
+        striped
+        customStyles={tableCustomStyles}
+        progressPending={loader}
+        progressComponent={<LoadingAnimation />}
+      />
     </StyleSheetManager>
   );
 }
