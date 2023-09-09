@@ -1,4 +1,4 @@
-// File: /Users/lakpadietz/v45-tier2-team-23/fireball/app/layout.jsx
+// File: C:\Users\James Schulz\Desktop\Chingu-v45-Fireball\v45-tier2-team-23\fireball\app\layout.jsx
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
