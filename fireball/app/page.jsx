@@ -8,10 +8,10 @@ import Table from "./_components/dataTable/Table";
 import Display from "./_components/summaryMetrics/Display";
 import { SortType } from "./_components/filterComponents/SortType";
 
+
 export default function Home() {
   const [filteredDataSet, setFilteredDataSet] = useState(meteoriteData);
   const [sortingMethod, setSortingMethod] = useState(undefined);
-  const results = filteredDataSet.sort(SortType[sortingMethod]);
 
   return (
     <div className="flex flex-col justify-between min-h-screen ">

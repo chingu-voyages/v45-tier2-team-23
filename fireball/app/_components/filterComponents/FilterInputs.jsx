@@ -34,9 +34,9 @@ export default function FilterInputs(props) {
         <>
             {/* Filter By Typing Input Fields */}
             <div className="InputSearches">
-                <div className="flex flex-col ">
-                    <input className="border border-slate-100 text-slate-100 bg-slate-700 px-2 py-1 focus:bg-slate-100 focus:text-slate-700 outline-slate-700" type="text" placeholder="Filter Name" onChange={handleNameInput} value={nameSearch} />
-                    <input className="border border-slate-100 text-slate-100 bg-slate-700 px-2 py-1 focus:bg-slate-100 focus:text-slate-700 outline-slate-700" type="text" placeholder="Filter Rec Class" onChange={handleRecInput} value={recSearch} />
+                <div className="flex flex-col w-40">
+                    <input className="border border-slate-100 text-slate-100 bg-slate-700 p-1 focus:bg-slate-100 focus:text-slate-700 outline-slate-700" type="text" placeholder="Filter Name" onChange={handleNameInput} value={nameSearch} />
+                    <input className="border border-slate-100 text-slate-100 bg-slate-700 p-1 my-1 focus:bg-slate-100 focus:text-slate-700 outline-slate-700" type="text" placeholder="Filter Composition" onChange={handleRecInput} value={recSearch} />
                 </div>
             </div>
         </>

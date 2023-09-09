@@ -69,12 +69,11 @@ export default function Sliders (props){
 
 
     return (
-        <div className="flex flex-col justify-center ms-2 ">
+        <div className="flex flex-col">
             {/* Mass Label and Selected Values */}
-            <div className="my-1 " >
-                <h5 className="mx-2 mt-4 ">Filter Mass Range</h5>
-                <p className="mx-2">Start: {massSliderV1}</p>
-                <p className="mx-2">End: {massSliderV2}</p>
+            <div>
+                <h5 className="flex justify-between mb-1">Mass: <span>{massSliderV1}-{massSliderV2}</span> </h5>
+                
             </div>
             {/* Mass Slider */}
             <div className="my-1">
@@ -92,22 +91,23 @@ export default function Sliders (props){
                     min="0" 
                     max="23000000" 
                     // Style Attributes //
-                    slider-width="150px"
-                    slider-height="5px"
-                    pointer-width="10px"
+                    slider-width="100%"
+                    slider-height="7px"
+                    slider-bg-fill="#77042B"
+                    slider-bg="#76877D"
+                    pointer-width="20px"
                     pointer-height="20px"
                     pointer-radius="5px"
-                    pointer-bg="#334155"
-                    pointer-bg-hover="yellow"
-                    pointer-bg-focus="yellow"
-                    slider-bg-fill="red"
-                    pointer1-shadow-focus =	"0 0 20px yellow"
-                    pointer2-shadow-focus =	"0 0 20px yellow"
-                    pointer1-shadow-hover =	"0 0 20px yellow"
-                    pointer2-shadow-hover =	"0 0 20px yellow"
+                    pointer-bg="#77042B"
+                    pointer-bg-hover="#CF9BCB"
+                    pointer-bg-focus="#CF9BCB"
+                    pointer1-shadow-focus =	"0 0 20px #CF9BCB"
+                    pointer2-shadow-focus =	"0 0 20px #CF9BCB"
+                    pointer1-shadow-hover =	"0 0 20px #CF9BCB"
+                    pointer2-shadow-hover =	"0 0 20px #CF9BCB"
                     pointer-border="1px solid black"
-                    pointer-border-hover="2px solid yellow"
-                    pointer-border-focus="2px solid yellow"
+                    pointer-border-hover="2px solid #CF9BCB"
+                    pointer-border-focus="2px solid #CF9BCB"
                 >
                 </tc-range-slider>
             </div>
@@ -115,9 +115,7 @@ export default function Sliders (props){
 
             {/* Year Label and Selected Values */}
             <div className="my-1">
-                <h5 className="mx-2 mt-4">Filter Year Range</h5>
-                <p className="mx-2">Start : &nbsp;{yearSliderV1}</p>
-                <p className="mx-2">End : {yearSliderV2}</p>
+                <h5 className="flex justify-between mb-1">Year: <span>{yearSliderV1}-{yearSliderV2}</span></h5>
             </div>
             {/* Year Slider */}
             <div className="my-1">
@@ -128,29 +126,30 @@ export default function Sliders (props){
                     value-label="#value-1"
                     value2-label="#value-2"
                     range-dragging="true"
-                    step="5"
-                    value1="500"
+                    data="800,1350,1475,1500,1600,1650,1700,1725,1750,1775,1800,1825,1850,1875,1900,1910,1920,1930,1940,1950,1960,1970,1980,1990,2000,2005,2010,2015,2023"
+                    value1="800"
                     value2="2023"
                     round="0"
-                    min="500" 
+                    min="800" 
                     max="2023" 
                     // Style Attributes //
-                    slider-width="150px"
-                    slider-height="5px"
-                    pointer-width="10px"
+                    slider-width="100%"
+                    slider-height="7px"
+                    slider-bg-fill="#77042B"
+                    slider-bg="#76877D"
+                    pointer-width="20px"
                     pointer-height="20px"
                     pointer-radius="5px"
-                    pointer-bg="#334155"
-                    pointer-bg-hover="yellow"
-                    pointer-bg-focus="yellow"
-                    slider-bg-fill="red"
-                    pointer1-shadow-focus =	"0 0 20px yellow"
-                    pointer2-shadow-focus =	"0 0 20px yellow"
-                    pointer1-shadow-hover =	"0 0 20px yellow"
-                    pointer2-shadow-hover =	"0 0 20px yellow"
+                    pointer-bg="#77042B"
+                    pointer-bg-hover="#CF9BCB"
+                    pointer-bg-focus="#CF9BCB"
+                    pointer1-shadow-focus =	"0 0 20px #CF9BCB"
+                    pointer2-shadow-focus =	"0 0 20px #CF9BCB"
+                    pointer1-shadow-hover =	"0 0 20px #CF9BCB"
+                    pointer2-shadow-hover =	"0 0 20px #CF9BCB"
                     pointer-border="1px solid black"
-                    pointer-border-hover="2px solid yellow"
-                    pointer-border-focus="2px solid yellow"
+                    pointer-border-hover="2px solid #CF9BCB"
+                    pointer-border-focus="2px solid #CF9BCB"
                 >
                 </tc-range-slider>
             </div>
