@@ -1,7 +1,8 @@
-import * as d3 from "d3";
+import * as d3 from 'd3';
 import { legendColor } from 'd3-svg-legend';
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef } from 'react';
 import geoJson from './countryGeoJson.json';
+import './Map.css';
 
 export default function Map({ results }) {
     const [chartType, setChartType] = useState("totalStrikes");
@@ -58,6 +59,9 @@ export default function Map({ results }) {
                 }
             }
 
+      for (let key in meteoritesPerCountry) {
+        if (meteoritesPerCountry[key] !== null) {
+          meteoritesPerCountry[key] = avgMassPerCountry[key] || 0;
         }
         else {
             const avgMassPerCountry = {}
@@ -118,6 +122,13 @@ export default function Map({ results }) {
         // Select all paths and bind data
         const paths = svg.selectAll("path")
             .data(Object.values(meteoritesPerCountryArr, elem => elem.country))
+
+        //Create tooltip
+        const tooltip = d3
+            .select('body')
+            .append('div')
+            .attr('class', 'tooltip')
+            .style('opacity', 0);
         
         // update/create paths
         paths
@@ -135,6 +146,26 @@ export default function Map({ results }) {
             .attr("fill", elem => elem.countryStrikeInfo === null ? "lightgrey" : elem.countryStrikeInfo === 0 ? "#f9f9f9" : color(elem.countryStrikeInfo));
         
         paths.attr("fill", elem => elem.countryStrikeInfo === null ? "lightgrey" : elem.countryStrikeInfo === 0 ? "#f9f9f9" : color(elem.countryStrikeInfo));
+
+        paths
+            .on('mouseover', (e, d) => {
+                tooltip.transition().duration(200).style('opacity', 0.9);
+                tooltip
+                .html(
+                    chartType === 'totalStrikes'
+                    ? `Country: ${d.country}<br/>Meteorite Strikes: ${
+                        d.numStrikes ? d.numStrikes : 'N/A'
+                        }`
+                    : `Country: ${d.country}<br/>Average Mass: ${
+                        Math.round(d.numStrikes) ? Math.round(d.numStrikes) : 'N/A'
+                        }`
+                )
+                .style('left', e.pageX + 'px')
+                .style('top', e.pageY - 28 + 'px');
+            })
+            .on('mouseout', (d) => {
+                tooltip.transition().duration(500).style('opacity', 0);
+            });
 
         // set legend
         svg.append("g")
@@ -184,7 +215,6 @@ export default function Map({ results }) {
             </form>
         </>
     );
-}
 
 function getCells(max) {
     const cells = max === 0 ? [0] : [0,max*0.1, max*0.25, max*0.5, max*0.75, max]; 
