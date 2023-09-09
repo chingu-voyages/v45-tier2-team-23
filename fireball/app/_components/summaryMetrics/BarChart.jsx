@@ -1,16 +1,9 @@
 import { Bar } from "react-chartjs-2";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Chart from "chart.js/auto";
 
 export default function BarChart({ results }) {
   const [chartType, setChartType] = useState("year");
-
-  const customStyles = {
-    canvas: {
-      width: "100%", // Use 100% width to fill the parent container
-      height: "auto", // Allow the height to adjust based on content
-    },
-  };
 
   // Bar chart - year
   const yearCounts = {};
@@ -43,6 +36,7 @@ export default function BarChart({ results }) {
       {
         label: "Meteorite Strikes",
         data: Object.values(yearCounts),
+        backgroundColor: "#77042b",
       },
     ],
   };
@@ -78,6 +72,7 @@ export default function BarChart({ results }) {
       {
         label: "Meteorite Strikes",
         data: Object.values(recclassCounts),
+        backgroundColor: "#77042b",
       },
     ],
   };
