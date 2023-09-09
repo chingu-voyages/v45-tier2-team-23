@@ -6,16 +6,17 @@ import './Map.css';
 
 export default function Map({ results }) {
     const [chartType, setChartType] = useState("totalStrikes");
-    const { current: meteoritesPerCountry } = useRef({});
+    const { current: countryMeteoriteInfo } = useRef({});
     const svgRef = useRef();
     
     // On initial load create an object that corresponds to all countries in results and give them an initial value of 0
+    // { country: 0 }
     useEffect(() => {
         results.forEach(elem =>  {
             if ('locationInfo' in elem) {
                 const country = elem.locationInfo.country;
                 if (country) {
-                    meteoritesPerCountry[country] = 0;
+                    countryMeteoriteInfo[country] = 0;
                 }
             }
         })
@@ -23,8 +24,8 @@ export default function Map({ results }) {
         geoJson.features.forEach(feature => { 
             if ('properties' in feature) {
                 if ('name' in feature.properties) {
-                    if (!meteoritesPerCountry.hasOwnProperty(feature.properties.name)) {
-                        meteoritesPerCountry[feature.properties.name] = null
+                    if (!countryMeteoriteInfo.hasOwnProperty(feature.properties.name)) {
+                        countryMeteoriteInfo[feature.properties.name] = null
                     }
                 }
             }
@@ -34,70 +35,30 @@ export default function Map({ results }) {
 
     // When results updates, recalculate and fill/create map on first load
     useEffect(() => {
-        
-        if (chartType === "totalStrikes") {
-            // Create a country: strikeNum object made up of just the filtered data
-            const newMeteoritesPerCountry = {}
-            results.forEach(elem =>  {
-                if ('locationInfo' in elem) {
-                    const country = elem.locationInfo.country;
-                    if (country) {
-                        if (newMeteoritesPerCountry[country]) {
-                            newMeteoritesPerCountry[country] += 1;
-                        } else {
-                            newMeteoritesPerCountry[country] = 1;
-                        }
-                    }
-                }
-            })
 
+        // Similar to CountryMeteoriteInfo, but has a value set to each country which will be avgerage mass per country or strikes per country depending on the chartType
+        // chartType === totalStrikes { country: numStrikes}
+        // chartType === avgMass { country: avgMass}
+        let filteredCountryMeteoriteInfo = {}
+        
+        filteredCountryMeteoriteInfo = filterResults(results,chartType);
             
-            // Update strikeNum in meteoritesPerCountry with new values
-            for ( let key in meteoritesPerCountry ) {
-                if (meteoritesPerCountry[key] !== null) {
-                    meteoritesPerCountry[key] = newMeteoritesPerCountry[key] || 0;
-                }
+        // Update the value of countries in countryMeteoriteInfo to accurately reflect the updated results.
+        for ( let key in countryMeteoriteInfo ) {
+            if (countryMeteoriteInfo[key] !== null) {
+                countryMeteoriteInfo[key] = filteredCountryMeteoriteInfo[key] || 0;
             }
-
         }
-        else {
-            const avgMassPerCountry = {}
-            results.forEach(elem => {
-                if ('locationInfo' in elem) {
-                    const country = elem.locationInfo.country;
-                    if (country) {
-                        if (avgMassPerCountry[country]) {
-                                if (elem.mass) {
-                                    avgMassPerCountry[country] += Number(elem.mass)/1000;
-                                }
-                        } else {
-                            if (elem.mass) {
-                                avgMassPerCountry[country] = Number(elem.mass)/1000;
-                            }
-                        }
-                    }
-                }
-            })
-  
-        
-            for ( let key in meteoritesPerCountry ) {
-                if (meteoritesPerCountry[key] !== null) {
-                    meteoritesPerCountry[key] = avgMassPerCountry[key] || 0;
-                }
-            }
 
-        } 
-        
         // Conver to an array where each element takes the form [country: "", countryStrikeInfo: _]
         // This format is necessary for use when mapping data to countries
-        const meteoritesPerCountryArr = Object.entries(meteoritesPerCountry).map(([country, countryStrikeInfo]) => ({
+        const countryMeteoriteInfoArr = Object.entries(countryMeteoriteInfo).map(([country, countryStrikeInfo]) => ({
             country,
             countryStrikeInfo
         }));
         
-        // Maximun number of strikes or maximum average mass used to set top of the domain
-        const max = Math.max(...Object.values(meteoritesPerCountry)) || 1;
-        const min = Math.min(...Object.values(meteoritesPerCountry));
+        // Maximum number of strikes or maximum average mass used to set top of the domain
+        const maxDomain = Math.max(...Object.values(countryMeteoriteInfo)) || 1;
         
         // Create projection
         const projection = d3
@@ -108,14 +69,15 @@ export default function Map({ results }) {
         // Path generator function
         const geoPathGenerator = d3.geoPath().projection(projection);
         // Color scale and domain
+        const domain = [0,chartType === "totalStrikes" && maxDomain <= 5 ? 5 : maxDomain];
         const color = d3.scaleSequential(d3.interpolatePuRd)
-            .domain([0, max == 0 ? 1 : max])
+            .domain(domain)
         // Grab the SVG element
         const svg = d3.select(svgRef.current);
 
         // Select all paths and bind data
         const paths = svg.selectAll("path")
-            .data(Object.values(meteoritesPerCountryArr, elem => elem.country))
+            .data(Object.values(countryMeteoriteInfoArr, elem => elem.country))
 
         //Create tooltip
         const tooltip = d3
@@ -169,18 +131,17 @@ export default function Map({ results }) {
 
         const legendSequential = legendColor()
             .shapeWidth(15)
-            .cells(getCells(max,chartType))
+            .cells(getCells(maxDomain,chartType))
             .title(chartType === "avgMass" ? "kgs" : "meteorites")
-            .labelFormat((chartType === "avgMass" && max < 100) ? ".2f" : "1.0f")
+            .labelFormat(getLabelFormat(maxDomain,chartType))
             .orient("vertical")
             .scale(color)
         
         svg.select(".legendSequential")
             .call(legendSequential);
 
+
     },[results,chartType])
-
-
 
     return (
         <>
@@ -211,12 +172,77 @@ export default function Map({ results }) {
     );
 }
 
-function getCells(max,chartType) {
-    const cells = max === 0 ? [0] : [0,max*0.1, max*0.25, max*0.5, max*0.75, max]; 
-    
-    const roundedCells = max > 100 ? cells.map(elem => Math.round(elem/10)*10) : cells;
+// Returns the cells that will be rendered by the legend
+function getCells(maxDomain, chartType) {
+    const cells = [0, maxDomain * 0.1, maxDomain * 0.25, maxDomain * 0.5, maxDomain * 0.75, maxDomain];
+    if (chartType === "totalStrikes") {
+        if (maxDomain <= 5) {
+            return [0,1,2,3,4,5]
+        } 
+        else if (maxDomain <= 25) {
+            return cells
+        }
+        else if (maxDomain <= 50) {
+            return cells.map(elem => Math.round(elem / 5) * 5);
+        }
+        
+        return cells.map(elem => Math.round(elem / 10) * 10)
+    } else {
+        return maxDomain > 100 ? cells.map(elem => Math.round(elem / 10) * 10) : cells;
+    }
+}
+
+// function getCells(maxDomain, chartType) {
+//     const cells = chartType === "totalStrikes" && maxDomain <= 5 ? [0,1,2,3,4,5] : [0, maxDomain * 0.1, maxDomain * 0.25, maxDomain * 0.5, maxDomain * 0.75, maxDomain];
+
+//     const roundedCells = maxDomain > 100 ? cells.map(elem => Math.round(elem / 10) * 10) : cells;
+
+//     return roundedCells;
+// }
+
+// Formats the legend's label to have different precision levels as the domain shifts
+function getLabelFormat(maxDomain, chartType) {
+    if (chartType === "avgMass") {
+        if (maxDomain <= 1) {
+            return ".3f";
+        } else if (maxDomain <= 10) {
+            return ".2f";
+        } else if (maxDomain <= 100) {
+            return ".1f";
+        }
+    }
+
+    return "1.0f";
+}
 
 
-
-    return roundedCells
+// creates a { country: info } object where info can either be avgMass or strikeNum
+function filterResults (results, chartType) {
+    // Create a { country: strikeNum } object made up of just the filtered data
+    const newMeteoriteInfo = {}
+    results.forEach(elem =>  {
+        if ('locationInfo' in elem) {
+            const country = elem.locationInfo.country;
+            if (country) {
+                if (chartType === "avgMass") {
+                    if (newMeteoriteInfo[country]) {
+                        if (elem.mass) {
+                            newMeteoriteInfo[country] += Number(elem.mass)/1000; // Converts grams to kgs
+                        }
+                    } else {
+                        if (elem.mass) {
+                            newMeteoriteInfo[country] = Number(elem.mass)/1000; // Converts grams to kgs
+                        }
+                    }
+                } else {  
+                    if (newMeteoriteInfo[country]) {
+                        newMeteoriteInfo[country] += 1;
+                    } else {
+                        newMeteoriteInfo[country] = 1;
+                    }
+                }
+            }
+        }
+    })
+    return newMeteoriteInfo
 }
