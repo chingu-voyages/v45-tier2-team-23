@@ -1,6 +1,6 @@
-import * as d3 from 'd3';
+import * as d3 from "d3";
 import { legendColor } from 'd3-svg-legend';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from "react"
 import geoJson from './countryGeoJson.json';
 import './Map.css';
 
@@ -59,9 +59,6 @@ export default function Map({ results }) {
                 }
             }
 
-      for (let key in meteoritesPerCountry) {
-        if (meteoritesPerCountry[key] !== null) {
-          meteoritesPerCountry[key] = avgMassPerCountry[key] || 0;
         }
         else {
             const avgMassPerCountry = {}
@@ -99,7 +96,7 @@ export default function Map({ results }) {
         }));
         
         // Maximun number of strikes or maximum average mass used to set top of the domain
-        const max = Math.max(...Object.values(meteoritesPerCountry));
+        const max = Math.max(...Object.values(meteoritesPerCountry)) || 1;
         const min = Math.min(...Object.values(meteoritesPerCountry));
         
         // Create projection
@@ -110,12 +107,9 @@ export default function Map({ results }) {
 
         // Path generator function
         const geoPathGenerator = d3.geoPath().projection(projection);
-        console.log("max:", max)
         // Color scale and domain
         const color = d3.scaleSequential(d3.interpolatePuRd)
             .domain([0, max == 0 ? 1 : max])
-        console.log(meteoritesPerCountryArr)
-        console.log(color(2))
         // Grab the SVG element
         const svg = d3.select(svgRef.current);
 
@@ -154,10 +148,10 @@ export default function Map({ results }) {
                 .html(
                     chartType === 'totalStrikes'
                     ? `Country: ${d.country}<br/>Meteorite Strikes: ${
-                        d.numStrikes ? d.numStrikes : 'N/A'
+                        d.countryStrikeInfo ? d.countryStrikeInfo : 'N/A'
                         }`
                     : `Country: ${d.country}<br/>Average Mass: ${
-                        Math.round(d.numStrikes) ? Math.round(d.numStrikes) : 'N/A'
+                        Math.round(d.countryStrikeInfo) ? Math.round(d.countryStrikeInfo) : 'N/A'
                         }`
                 )
                 .style('left', e.pageX + 'px')
@@ -166,7 +160,7 @@ export default function Map({ results }) {
             .on('mouseout', (d) => {
                 tooltip.transition().duration(500).style('opacity', 0);
             });
-
+        
         // set legend
         svg.append("g")
             .attr("class", "legendSequential")
@@ -175,7 +169,7 @@ export default function Map({ results }) {
 
         const legendSequential = legendColor()
             .shapeWidth(15)
-            .cells(getCells(max))
+            .cells(getCells(max,chartType))
             .title(chartType === "avgMass" ? "kgs" : "meteorites")
             .labelFormat((chartType === "avgMass" && max < 100) ? ".2f" : "1.0f")
             .orient("vertical")
@@ -215,12 +209,14 @@ export default function Map({ results }) {
             </form>
         </>
     );
+}
 
-function getCells(max) {
+function getCells(max,chartType) {
     const cells = max === 0 ? [0] : [0,max*0.1, max*0.25, max*0.5, max*0.75, max]; 
     
-    
-    return max > 100 
-        ? cells.map(elem => Math.round(elem/10)*10)
-        :  cells;
+    const roundedCells = max > 100 ? cells.map(elem => Math.round(elem/10)*10) : cells;
+
+
+
+    return roundedCells
 }
