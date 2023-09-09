@@ -6,7 +6,6 @@ import Footer from "./_components/Footer";
 import Search from "./_components/filterComponents/Search";
 import Table from "./_components/dataTable/Table";
 import Display from "./_components/summaryMetrics/Display";
-import { SortType } from "./_components/filterComponents/SortType";
 
 
 export default function Home() {
@@ -18,7 +17,7 @@ export default function Home() {
       <Header />
       <main className="flex-1 lg:grid lg:grid-cols-10 flex flex-col pt-12 px-12 gap-4">
         <div className="lg:col-span-6  lg:min-w-[500px] min-w-[300px]">
-          <Display results={results} />
+          <Display results={filteredDataSet} />
         </div>
         <div className="lg:col-span-4 flex flex-col justify-start gap-4">
           <div className="">
@@ -29,7 +28,7 @@ export default function Home() {
             />
           </div>
           <div className="">
-            <Table results={results} />
+            <Table results={filteredDataSet} />
           </div>
         </div>
       </main>
