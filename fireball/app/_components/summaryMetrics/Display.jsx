@@ -7,22 +7,30 @@ export default function Display({ results }) {
 
   return (
     <div className="flex-auto">
-      <div className="flex gap-3 justify-center">
+      <div className="flex gap-3 justify-center bg-gray-200 w-96 mx-auto p-2 gap-2 rounded-lg">
         <button
-          className="border w-48 border-slate-700 bg-slate-100 test-slate-300 text-slate-700 p-1 hover:bg-slate-700 hover:text-slate-100"
+          className={`w-48 rounded-lg p-2 transition duration-900 ease-in-out ${
+            graphicDisplay === "map"
+              ? "bg-accent text-white"
+              : "bg-gray-200 text-gray-600"
+          }`}
           onClick={() => setGraphicDisplay("map")}
         >
           Map
         </button>
         <button
-          className="border w-48 border-slate-700 bg-slate-100 test-slate-300 text-slate-700 p-1 hover:bg-slate-700 hover:text-slate-100"
+          className={`w-48 rounded-lg p-2 transition duration-900 ease-in-out ${
+            graphicDisplay === "graph"
+              ? "bg-accent text-white"
+              : "bg-gray-200 text-gray-600"
+          }`}
           onClick={() => setGraphicDisplay("graph")}
         >
           Bar Graph
         </button>
       </div>
-      {graphicDisplay === "map" && <Map results={results}/>}
+      {graphicDisplay === "map" && <Map results={results} />}
       {graphicDisplay === "graph" && <BarChart results={results} />}
     </div>
   );
-};
+}

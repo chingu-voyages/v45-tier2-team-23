@@ -78,7 +78,7 @@ export default function BarChart({ results }) {
   };
 
   return (
-    <div>
+    <div className="mt-4">
       <div className={`${chartType === "composition" ? "hidden" : ""}`}>
         <Bar data={chartData} options={chartOptions} className="w-100" />
       </div>
@@ -89,26 +89,28 @@ export default function BarChart({ results }) {
           className="w-100"
         />
       </div>
-      <form className="flex items-center justify-center gap-2">
-        <label>
+      <form className="flex items-center justify-center gap-2 mt-4">
+        <label className="flex items-center">
           <input
             type="radio"
             name="option"
             value="year"
             checked={chartType === "year"} // Check based on chartType value
             onChange={() => setChartType("year")}
+            className="me-2"
           />
           Year
         </label>
-        <label>
+        <label className="flex items-center">
           <input
             type="radio"
             name="option"
             value="composition"
             checked={chartType === "composition"} // Check based on chartType value
             onChange={() => setChartType("composition")}
+            className="me-2"
           />
-          Composition (Recclass)
+          Composition
         </label>
       </form>
     </div>

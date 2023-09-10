@@ -143,33 +143,35 @@ export default function Map({ results }) {
 
     },[results,chartType])
 
-    return (
-        <>
-            <svg ref={svgRef}  viewBox="0 0 650 400" width="100%" height="100%"  />
-            <form className="flex items-center justify-center gap-2">
-                <label>
-                <input
-                    type="radio"
-                    name="option"
-                    value="totalStrikes"
-                    checked={chartType === "totalStrikes"} // Check based on chartType value
-                    onChange={() => setChartType("totalStrikes")}
-                />
-                Total strikes
-                </label>
-                <label>
-                <input
-                    type="radio"
-                    name="option"
-                    value="avgMass"
-                    checked={chartType === "avgMass"} // Check based on chartType value
-                    onChange={() => setChartType("avgMass")}
-                />
-                Average strike mass
-                </label>
-            </form>
-        </>
-    );
+  return (
+    <>
+      <svg ref={svgRef} viewBox="0 0 650 400" width="100%" height="100%" />
+      <form className="flex items-center justify-center gap-2">
+        <label>
+          <input
+            type="radio"
+            name="option"
+            value="totalStrikes"
+            checked={chartType === "totalStrikes"} // Check based on chartType value
+            onChange={() => setChartType("totalStrikes")}
+            className="me-2"
+          />
+          Total strikes
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="option"
+            value="avgMass"
+            checked={chartType === "avgMass"} // Check based on chartType value
+            onChange={() => setChartType("avgMass")}
+            className="me-2"
+          />
+          Average strike mass
+        </label>
+      </form>
+    </>
+  );
 }
 
 // Returns the cells that will be rendered by the legend
