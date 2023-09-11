@@ -4,11 +4,13 @@ import { useEffect, useState, useRef } from "react"
 import geoJson from './countryGeoJson.json';
 import './Map.css';
 
-export default function Map({ results }) {
+export default function Map({ results, hoveredRow }) {
     const [chartType, setChartType] = useState("totalStrikes");
     const { current: countryMeteoriteInfo } = useRef({});
     const svgRef = useRef();
-    
+    let paths
+
+
     // On initial load create an object that corresponds to all countries in results and give them an initial value of 0
     // { country: 0 }
     useEffect(() => {
@@ -35,7 +37,7 @@ export default function Map({ results }) {
 
     // When results updates, recalculate and fill/create map on first load
     useEffect(() => {
-
+        
         // Similar to CountryMeteoriteInfo, but has a value set to each country which will be avgerage mass per country or strikes per country depending on the chartType
         // chartType === totalStrikes { country: numStrikes}
         // chartType === avgMass { country: avgMass}
@@ -76,15 +78,15 @@ export default function Map({ results }) {
         const svg = d3.select(svgRef.current);
 
         // Select all paths and bind data
-        const paths = svg.selectAll("path")
+        paths = svg.selectAll("path")
             .data(Object.values(countryMeteoriteInfoArr, elem => elem.country))
-
         //Create tooltip
         const tooltip = d3
             .select('body')
             .append('div')
             .attr('class', 'tooltip')
             .style('opacity', 0);
+
         
         // update/create paths
         paths
@@ -101,6 +103,7 @@ export default function Map({ results }) {
             .attr("stroke-width", 0.3)
             .attr("fill", elem => elem.countryStrikeInfo === null ? "lightgrey" : elem.countryStrikeInfo === 0 ? "#f9f9f9" : color(elem.countryStrikeInfo));
         
+        // Update fill color when data changes
         paths.attr("fill", elem => elem.countryStrikeInfo === null ? "lightgrey" : elem.countryStrikeInfo === 0 ? "#f9f9f9" : color(elem.countryStrikeInfo));
 
         paths
@@ -122,6 +125,12 @@ export default function Map({ results }) {
             .on('mouseout', (d) => {
                 tooltip.transition().duration(500).style('opacity', 0);
             });
+
+        // Select the country who's row is currently being hovered on in the table.
+        const selectedPath = hoveredRow && paths.filter((d) => d.country === hoveredRow.country);
+        // Highlight/unhighlight the country
+        selectedPath && selectedPath.classed("stroke-accent stroke-1",hoveredRow.isHovered)
+
         
         // set legend
         svg.append("g")
@@ -141,7 +150,7 @@ export default function Map({ results }) {
             .call(legendSequential);
 
 
-    },[results,chartType])
+    },[results,chartType,hoveredRow])
 
     return (
         <>

@@ -1,6 +1,6 @@
 import TableRow from './TableRow';
 
-export default function Table({ results }) {
+export default function Table({ results, setHoveredRow }) {
   return (
     <div className='text-sm border border-slate-700 h-[400px] overflow-y-auto'>
       <table className='table-fixed w-full'>
@@ -15,7 +15,7 @@ export default function Table({ results }) {
         </thead>
         <tbody className='w-full'>
           {results.map((nasaObj, i) => (
-            <TableRow key={i} nasaObj={nasaObj} />
+            <TableRow key={i} nasaObj={nasaObj} setHoveredRow={setHoveredRow} />
           ))}
         </tbody>
       </table>

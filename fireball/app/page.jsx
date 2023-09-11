@@ -11,13 +11,14 @@ import Display from "./_components/summaryMetrics/Display";
 export default function Home() {
   const [filteredDataSet, setFilteredDataSet] = useState(meteoriteData);
   const [sortingMethod, setSortingMethod] = useState(undefined);
+  const [hoveredRow, setHoveredRow] = useState(undefined);
 
   return (
     <div className="flex flex-col justify-between min-h-screen ">
       <Header />
       <main className="flex-1 lg:grid lg:grid-cols-10 flex flex-col pt-12 px-12 gap-4">
         <div className="lg:col-span-6  lg:min-w-[500px] min-w-[300px]">
-          <Display results={filteredDataSet} />
+          <Display results={filteredDataSet} hoveredRow={hoveredRow} />
         </div>
         <div className="lg:col-span-4 flex flex-col justify-start gap-4">
           <div className="">
@@ -28,7 +29,7 @@ export default function Home() {
             />
           </div>
           <div className="">
-            <Table results={filteredDataSet} />
+            <Table results={filteredDataSet} setHoveredRow={setHoveredRow} />
           </div>
         </div>
       </main>
