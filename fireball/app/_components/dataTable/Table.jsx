@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import DataTable from 'react-data-table-component';
-import isPropValid from '@emotion/is-prop-valid';
-import { StyleSheetManager } from 'styled-components';
-import LoadingAnimation from '../loadingAnimation/LoadingAnimation';
+import { useState, useEffect } from "react";
+import DataTable from "react-data-table-component";
+import isPropValid from "@emotion/is-prop-valid";
+import { StyleSheetManager } from "styled-components";
+import LoadingAnimation from "../loadingAnimation/LoadingAnimation";
 
 export default function Table({ results }) {
   const [loader, setLoader] = useState(true);
@@ -18,33 +18,33 @@ export default function Table({ results }) {
 
   const columns = [
     {
-      name: 'Name',
+      name: "Name",
       selector: (row) => row.name,
       sortable: true,
     },
     {
-      name: 'Year',
+      name: "Year",
       selector: (row) => {
         if (row.year) {
           return row.year.substring(0, 4);
         }
-        return 'N/A';
+        return "N/A";
       },
       sortable: true,
     },
     {
-      name: 'Composition',
+      name: "Composition",
       selector: (row) => row.recclass,
       sortable: true,
     },
     {
-      name: 'Mass',
-      selector: (row) => row.mass || 'N/A',
+      name: "Mass",
+      selector: (row) => row.mass || "N/A",
       sortable: true,
     },
     {
-      name: 'Location',
-      selector: (row) => row.locationInfo?.country || 'N/A',
+      name: "Location",
+      selector: (row) => row.locationInfo?.country || "N/A",
       sortable: true,
     },
   ];
@@ -52,8 +52,8 @@ export default function Table({ results }) {
   const tableCustomStyles = {
     headRow: {
       style: {
-        color: '#FFFFFF',
-        backgroundColor: 'rgba(16, 69, 71, 1)',
+        color: "#FFFFFF",
+        backgroundColor: "rgba(16, 69, 71, 1)",
       },
     },
   };
@@ -61,12 +61,14 @@ export default function Table({ results }) {
   return (
     <StyleSheetManager shouldForwardProp={isPropValid}>
       <DataTable
+        className="pt-2"
         columns={columns}
         data={rows}
+        striped
+        dense
         fixedHeader
         pagination
         highlightOnHover
-        striped
         customStyles={tableCustomStyles}
         progressPending={loader}
         progressComponent={<LoadingAnimation />}
@@ -74,3 +76,4 @@ export default function Table({ results }) {
     </StyleSheetManager>
   );
 }
+
