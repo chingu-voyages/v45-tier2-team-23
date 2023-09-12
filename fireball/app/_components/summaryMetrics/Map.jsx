@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react"
 import geoJson from './countryGeoJson.json';
 import './Map.css';
 
-export default function Map({ results, hoveredRow }) {
+export default function Map({ results, clickedRow }) {
     const [chartType, setChartType] = useState("totalStrikes");
     const { current: countryMeteoriteInfo } = useRef({});
     const svgRef = useRef();
@@ -15,8 +15,6 @@ export default function Map({ results, hoveredRow }) {
     // { country: 0 }
     useEffect(() => {
         results.forEach(elem =>  {
-
-            
             maxMassRef.current = elem.mass ? Math.max(Number(elem.mass), maxMassRef.current) : 0;
 
             if ('locationInfo' in elem) {
@@ -132,29 +130,35 @@ export default function Map({ results, hoveredRow }) {
                 tooltip.transition().duration(500).style('opacity', 0);
             });
 
-        // Select the country who's row is currently being hovered on in the table.
-        const selectedPath = hoveredRow && paths.filter((d) => d.country === hoveredRow.country);
-        // Highlight/unhighlight the country
-        selectedPath && selectedPath.classed("stroke-accent stroke-1",hoveredRow.isHovered);
-
+        
         // remove previously plotted strike 
         svg.select("circle#tempCircle").remove();
         svg.select("circle#tempDot").remove();
-        
-        // Scale for mass circles
-        const strikeMassScale = d3.scaleSqrt()
+        svg.select("path#tempHighlight").classed("stroke-accent stroke-1",false).attr("id",null)
+
+        // Display the country and position/mass of selected row from data table
+        if (clickedRow) {
+
+            // Scale for mass circles
+            const strikeMassScale = d3.scaleSqrt()
                 .domain([0,maxMassRef.current])
                 .range([0.5,25])
-        
-        // Plot coordinates and size of strike on map based on the mass size of the row that is hover in table
-        if (hoveredRow?.isHovered && hoveredRow?.coordinates) {
-            const xyStrikePosition = projection(hoveredRow.coordinates)
+
+
+            // Select the country who's row is currently selected on in the table.
+            const selectedPath = paths.filter((d) => d.country === clickedRow.country);
+
+            // Highlight/unhighlight the country
+            selectedPath.classed("stroke-accent stroke-1",true).attr("id","tempHighlight");
+
+            // Plot coordinates and size of strike on map based on the mass size of the row that is selected in table
+            const xyStrikePosition = projection(clickedRow.coordinates)
 
             svg
                 .append("circle")
                 .attr("cx", xyStrikePosition[0])
                 .attr("cy", xyStrikePosition[1])
-                .attr("r", strikeMassScale(hoveredRow?.mass))
+                .attr("r", strikeMassScale(clickedRow?.mass))
                 .attr("id", "tempCircle") 
                 .classed("stroke-accent stroke-1", true)
                 .attr("fill-opacity", "0.5");
@@ -186,7 +190,7 @@ export default function Map({ results, hoveredRow }) {
             .call(legendSequential);
 
 
-    },[results,chartType,hoveredRow])
+    },[results,chartType,clickedRow])
 
     return (
         <>

@@ -4,7 +4,7 @@ import isPropValid from "@emotion/is-prop-valid";
 import { StyleSheetManager } from "styled-components";
 import LoadingAnimation from "../loadingAnimation/LoadingAnimation";
 
-export default function Table({ results }) {
+export default function Table({ results, setClickedRow }) {
   const [loader, setLoader] = useState(true);
   const [rows, setRows] = useState();
 
@@ -62,6 +62,14 @@ export default function Table({ results }) {
     noRowsPerPage: true,
   };
 
+  const handleRowClick = (row) => {
+    const coordinates = [row.reclong, row.reclat];
+    const country = row?.locationInfo?.country;
+    const mass = row?.mass;
+    console.log({ coordinates, country, mass})
+    setClickedRow({ coordinates, country, mass})
+  }
+
   return (
     <StyleSheetManager shouldForwardProp={isPropValid}>
       <DataTable
@@ -77,6 +85,7 @@ export default function Table({ results }) {
         progressPending={loader}
         progressComponent={<LoadingAnimation />}
         paginationComponentOptions={paginationComponentOptions}
+        onRowClicked={handleRowClick}
       />
     </StyleSheetManager>
   );

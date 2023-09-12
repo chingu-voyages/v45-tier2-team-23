@@ -2,7 +2,7 @@ import { useState } from "react";
 import Map from "./Map";
 import BarChart from "./BarChart";
 
-export default function Display({ results, hoveredRow }) {
+export default function Display({ results, clickedRow }) {
   const [graphicDisplay, setGraphicDisplay] = useState("map");
 
   return (
@@ -29,7 +29,7 @@ export default function Display({ results, hoveredRow }) {
           Bar Graph
         </button>
       </div>
-      {graphicDisplay === "map" && <Map results={results} hoveredRow={hoveredRow} />}
+      {graphicDisplay === "map" && <Map results={results} clickedRow={clickedRow} />}
       {graphicDisplay === "graph" && <BarChart results={results} />}
     </div>
   );
