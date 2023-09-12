@@ -58,6 +58,10 @@ export default function Table({ results }) {
     },
   };
 
+  const paginationComponentOptions = {
+    noRowsPerPage: true,
+  };
+
   return (
     <StyleSheetManager shouldForwardProp={isPropValid}>
       <DataTable
@@ -72,6 +76,7 @@ export default function Table({ results }) {
         customStyles={tableCustomStyles}
         progressPending={loader}
         progressComponent={<LoadingAnimation />}
+        paginationComponentOptions={paginationComponentOptions}
       />
     </StyleSheetManager>
   );
