@@ -29,7 +29,7 @@ export default function Search(props) {
           setFilteredDataSet={setFilteredDataSet}
         />
       </div>
-      <div className="flex flex-col items-center mt-2 lg:pl-10 md:pl-5 basis-4/12">
+      <div className="flex flex-col items-center mt-2 pl-10 basis-4/12">
         <FilterInputs
           setFilteredDataSet={setFilteredDataSet}
           nameSearch={nameSearch}

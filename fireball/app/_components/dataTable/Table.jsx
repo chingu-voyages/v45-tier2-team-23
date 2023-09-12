@@ -14,7 +14,7 @@ export default function Table({ results }) {
       setLoader(false);
     }, 1000);
     return () => clearTimeout(timeout);
-  }, []);
+  }, [results]);
 
   const columns = [
     {
@@ -76,4 +76,3 @@ export default function Table({ results }) {
     </StyleSheetManager>
   );
 }
-
