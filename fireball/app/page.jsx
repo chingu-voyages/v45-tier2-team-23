@@ -7,15 +7,14 @@ import Search from "./_components/filterComponents/Search";
 import Table from "./_components/dataTable/Table";
 import Display from "./_components/summaryMetrics/Display";
 
-
 export default function Home() {
   const [filteredDataSet, setFilteredDataSet] = useState(meteoriteData);
   const [sortingMethod, setSortingMethod] = useState(undefined);
 
   return (
-    <div className="flex flex-col justify-between min-h-screen ">
+    <div className="flex flex-col justify-between">
       <Header />
-      <main className="flex-1 lg:grid lg:grid-cols-10 flex flex-col pt-12 px-12 gap-4">
+      <main className="flex-1 lg:grid lg:grid-cols-10 flex flex-col pt-12 px-12 gap-4 min-h-full">
         <div className="lg:col-span-6  lg:min-w-[500px] min-w-[300px]">
           <Display results={filteredDataSet} />
         </div>

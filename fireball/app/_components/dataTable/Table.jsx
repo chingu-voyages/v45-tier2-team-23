@@ -1,24 +1,83 @@
-import TableRow from './TableRow';
+import { useState, useEffect } from "react";
+import DataTable from "react-data-table-component";
+import isPropValid from "@emotion/is-prop-valid";
+import { StyleSheetManager } from "styled-components";
+import LoadingAnimation from "../loadingAnimation/LoadingAnimation";
 
 export default function Table({ results }) {
+  const [loader, setLoader] = useState(true);
+  const [rows, setRows] = useState();
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setRows(results);
+      setLoader(false);
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, [results]);
+
+  const columns = [
+    {
+      name: "Name",
+      selector: (row) => row.name,
+      sortable: true,
+    },
+    {
+      name: "Year",
+      selector: (row) => {
+        if (row.year) {
+          return row.year.substring(0, 4);
+        }
+        return "N/A";
+      },
+      sortable: true,
+    },
+    {
+      name: "Composition",
+      selector: (row) => row.recclass,
+      sortable: true,
+    },
+    {
+      name: "Mass",
+      selector: (row) => row.mass || "N/A",
+      sortable: true,
+    },
+    {
+      name: "Location",
+      selector: (row) => row.locationInfo?.country || "N/A",
+      sortable: true,
+    },
+  ];
+
+  const tableCustomStyles = {
+    headRow: {
+      style: {
+        color: "#FFFFFF",
+        backgroundColor: "rgba(16, 69, 71, 1)",
+      },
+    },
+  };
+
+  const paginationComponentOptions = {
+    noRowsPerPage: true,
+  };
+
   return (
-    <div className='text-sm border border-slate-700 h-[400px] overflow-y-auto'>
-      <table className='table-fixed w-full'>
-        <thead className='sticky top-0 text-slate-700 bg-slate-100 w-full'>
-          <tr>
-            <th className='py-2 px-4 text-left'>Name</th>
-            <th className='py-2 px-4 text-left'>Year</th>
-            <th className='py-2 px-4 text-left'>Composition</th>
-            <th className='py-2 px-4 text-left'>Mass</th>
-            <th className='py-2 px-4 text-left'>Location</th>
-          </tr>
-        </thead>
-        <tbody className='w-full'>
-          {results.map((nasaObj, i) => (
-            <TableRow key={i} nasaObj={nasaObj} />
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <StyleSheetManager shouldForwardProp={isPropValid}>
+      <DataTable
+        className="pt-2"
+        columns={columns}
+        data={rows}
+        striped
+        dense
+        fixedHeader
+        pagination
+        highlightOnHover
+        customStyles={tableCustomStyles}
+        progressPending={loader}
+        progressComponent={<LoadingAnimation />}
+        paginationComponentOptions={paginationComponentOptions}
+      />
+    </StyleSheetManager>
   );
 }
