@@ -14,7 +14,7 @@ export default function Home() {
   const [hoveredRow, setHoveredRow] = useState(undefined);
 
   return (
-    <div className="flex flex-col justify-between min-h-screen ">
+    <div className="flex flex-col justify-between min-h-screen">
       <Header />
       <main className="flex-1 lg:grid lg:grid-cols-10 flex flex-col pt-12 px-12 gap-4">
         <div className="lg:col-span-6  lg:min-w-[500px] min-w-[300px]">

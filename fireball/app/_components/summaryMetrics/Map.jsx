@@ -8,13 +8,17 @@ export default function Map({ results, hoveredRow }) {
     const [chartType, setChartType] = useState("totalStrikes");
     const { current: countryMeteoriteInfo } = useRef({});
     const svgRef = useRef();
-    let paths
+    let maxMassRef = useRef(0);
 
 
     // On initial load create an object that corresponds to all countries in results and give them an initial value of 0
     // { country: 0 }
     useEffect(() => {
         results.forEach(elem =>  {
+
+            
+            maxMassRef.current = elem.mass ? Math.max(Number(elem.mass), maxMassRef.current) : 0;
+
             if ('locationInfo' in elem) {
                 const country = elem.locationInfo.country;
                 if (country) {
@@ -22,6 +26,7 @@ export default function Map({ results, hoveredRow }) {
                 }
             }
         })
+        
         // Any countries that are not in the data set but are in our geoJson should be set as null so we know they have no data associated with them
         geoJson.features.forEach(feature => { 
             if ('properties' in feature) {
@@ -70,24 +75,18 @@ export default function Map({ results, hoveredRow }) {
 
         // Path generator function
         const geoPathGenerator = d3.geoPath().projection(projection);
+
         // Color scale and domain
         const domain = [0,chartType === "totalStrikes" && maxDomain <= 5 ? 5 : maxDomain];
         const color = d3.scaleSequential(d3.interpolatePuRd)
             .domain(domain)
         // Grab the SVG element
         const svg = d3.select(svgRef.current);
-
-        // Select all paths and bind data
-        paths = svg.selectAll("path")
-            .data(Object.values(countryMeteoriteInfoArr, elem => elem.country))
-        //Create tooltip
-        const tooltip = d3
-            .select('body')
-            .append('div')
-            .attr('class', 'tooltip')
-            .style('opacity', 0);
-
         
+        // Select all paths and bind data
+        const paths = svg.selectAll("path")
+            .data(Object.values(countryMeteoriteInfoArr, elem => elem.country))
+
         // update/create paths
         paths
             .enter()
@@ -105,6 +104,13 @@ export default function Map({ results, hoveredRow }) {
         
         // Update fill color when data changes
         paths.attr("fill", elem => elem.countryStrikeInfo === null ? "lightgrey" : elem.countryStrikeInfo === 0 ? "#f9f9f9" : color(elem.countryStrikeInfo));
+        
+        //Create tooltip
+        const tooltip = d3
+            .select('body')
+            .append('div')
+            .attr('class', 'tooltip')
+            .style('opacity', 0);
 
         paths
             .on('mouseover', (e, d) => {
@@ -129,7 +135,37 @@ export default function Map({ results, hoveredRow }) {
         // Select the country who's row is currently being hovered on in the table.
         const selectedPath = hoveredRow && paths.filter((d) => d.country === hoveredRow.country);
         // Highlight/unhighlight the country
-        selectedPath && selectedPath.classed("stroke-accent stroke-1",hoveredRow.isHovered)
+        selectedPath && selectedPath.classed("stroke-accent stroke-1",hoveredRow.isHovered);
+
+        // remove previously plotted strike 
+        svg.select("circle#tempCircle").remove();
+        svg.select("circle#tempDot").remove();
+        
+        // Scale for mass circles
+        const strikeMassScale = d3.scaleSqrt()
+                .domain([0,maxMassRef.current])
+                .range([0.5,25])
+        
+        // Plot coordinates and size of strike on map based on the mass size of the row that is hover in table
+        if (hoveredRow?.isHovered && hoveredRow?.coordinates) {
+            const xyStrikePosition = projection(hoveredRow.coordinates)
+
+            svg
+                .append("circle")
+                .attr("cx", xyStrikePosition[0])
+                .attr("cy", xyStrikePosition[1])
+                .attr("r", strikeMassScale(hoveredRow?.mass))
+                .attr("id", "tempCircle") 
+                .classed("stroke-accent stroke-1", true)
+                .attr("fill-opacity", "0.5");
+                
+            svg
+                .append("circle")
+                .attr("cx", xyStrikePosition[0])
+                .attr("cy", xyStrikePosition[1])
+                .attr("r", 0.5)
+                .attr("id", "tempDot")
+        }
 
         
         // set legend
@@ -200,14 +236,6 @@ function getCells(maxDomain, chartType) {
         return maxDomain > 100 ? cells.map(elem => Math.round(elem / 10) * 10) : cells;
     }
 }
-
-// function getCells(maxDomain, chartType) {
-//     const cells = chartType === "totalStrikes" && maxDomain <= 5 ? [0,1,2,3,4,5] : [0, maxDomain * 0.1, maxDomain * 0.25, maxDomain * 0.5, maxDomain * 0.75, maxDomain];
-
-//     const roundedCells = maxDomain > 100 ? cells.map(elem => Math.round(elem / 10) * 10) : cells;
-
-//     return roundedCells;
-// }
 
 // Formats the legend's label to have different precision levels as the domain shifts
 function getLabelFormat(maxDomain, chartType) {
