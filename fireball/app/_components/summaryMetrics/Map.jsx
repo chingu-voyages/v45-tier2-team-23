@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react"
 import geoJson from './countryGeoJson.json';
 import './Map.css';
 
-export default function Map({ results, clickedRow }) {
+export default function Map({ results, selectedRow }) {
     const [chartType, setChartType] = useState("totalStrikes");
     const { current: countryMeteoriteInfo } = useRef({});
     const svgRef = useRef();
@@ -137,7 +137,7 @@ export default function Map({ results, clickedRow }) {
         svg.select("path#tempHighlight").classed("stroke-accent stroke-1",false).attr("id",null)
 
         // Display the country and position/mass of selected row from data table
-        if (clickedRow) {
+        if (selectedRow) {
 
             // Scale for mass circles
             const strikeMassScale = d3.scaleSqrt()
@@ -146,19 +146,19 @@ export default function Map({ results, clickedRow }) {
 
 
             // Select the country who's row is currently selected on in the table.
-            const selectedPath = paths.filter((d) => d.country === clickedRow.country);
+            const selectedPath = paths.filter((d) => d.country === selectedRow.country);
 
             // Highlight/unhighlight the country
             selectedPath.classed("stroke-accent stroke-1",true).attr("id","tempHighlight");
 
             // Plot coordinates and size of strike on map based on the mass size of the row that is selected in table
-            const xyStrikePosition = projection(clickedRow.coordinates)
+            const xyStrikePosition = projection(selectedRow.coordinates)
 
             svg
                 .append("circle")
                 .attr("cx", xyStrikePosition[0])
                 .attr("cy", xyStrikePosition[1])
-                .attr("r", strikeMassScale(clickedRow?.mass))
+                .attr("r", strikeMassScale(selectedRow?.mass))
                 .attr("id", "tempCircle") 
                 .classed("stroke-accent stroke-1", true)
                 .attr("fill-opacity", "0.5");
@@ -190,7 +190,7 @@ export default function Map({ results, clickedRow }) {
             .call(legendSequential);
 
 
-    },[results,chartType,clickedRow])
+    },[results,chartType,selectedRow])
 
     return (
         <>

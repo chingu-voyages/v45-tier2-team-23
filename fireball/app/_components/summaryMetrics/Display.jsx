@@ -2,7 +2,7 @@ import { useState } from "react";
 import Map from "./Map";
 import BarChart from "./BarChart";
 
-export default function Display({ results, clickedRow }) {
+export default function Display({ results, selectedRow }) {
   const [graphicDisplay, setGraphicDisplay] = useState("map");
 
   return (
@@ -29,7 +29,7 @@ export default function Display({ results, clickedRow }) {
           Bar Graph
         </button>
       </div>
-      {graphicDisplay === "map" && <Map results={results} clickedRow={clickedRow} />}
+      {graphicDisplay === "map" && <Map results={results} selectedRow={selectedRow} />}
       {graphicDisplay === "graph" && <BarChart results={results} />}
     </div>
   );

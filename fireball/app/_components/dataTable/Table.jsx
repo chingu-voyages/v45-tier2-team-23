@@ -4,13 +4,13 @@ import isPropValid from "@emotion/is-prop-valid";
 import { StyleSheetManager } from "styled-components";
 import LoadingAnimation from "../loadingAnimation/LoadingAnimation";
 
-export default function Table({ results, setClickedRow }) {
+export default function Table({ results, setSelectedRow }) {
   const [loader, setLoader] = useState(true);
   const [rows, setRows] = useState();
 
   useEffect(() => {
+    setRows(results);
     const timeout = setTimeout(() => {
-      setRows(results);
       setLoader(false);
     }, 1000);
     return () => clearTimeout(timeout);
@@ -39,7 +39,7 @@ export default function Table({ results, setClickedRow }) {
     },
     {
       name: "Mass",
-      selector: (row) => row.mass || "N/A",
+      selector: (row) => row.mass || 0,
       sortable: true,
     },
     {
@@ -62,12 +62,15 @@ export default function Table({ results, setClickedRow }) {
     noRowsPerPage: true,
   };
 
-  const handleRowClick = (row) => {
+  const handleRowSelect = (row) => {
     const coordinates = [row.reclong, row.reclat];
     const country = row?.locationInfo?.country;
     const mass = row?.mass;
-    console.log({ coordinates, country, mass})
-    setClickedRow({ coordinates, country, mass})
+    setSelectedRow({ coordinates, country, mass, isSelected: true})
+  }
+
+  const handleRowUnselect = (row) => {
+    setSelectedRow()
   }
 
   return (
@@ -77,7 +80,6 @@ export default function Table({ results, setClickedRow }) {
         columns={columns}
         data={rows}
         striped
-        dense
         fixedHeader
         pagination
         highlightOnHover
@@ -85,7 +87,9 @@ export default function Table({ results, setClickedRow }) {
         progressPending={loader}
         progressComponent={<LoadingAnimation />}
         paginationComponentOptions={paginationComponentOptions}
-        onRowClicked={handleRowClick}
+        onRowClicked={handleRowSelect}
+        onRowMouseEnter={handleRowSelect}
+        onRowMouseLeave={handleRowUnselect}
       />
     </StyleSheetManager>
   );
