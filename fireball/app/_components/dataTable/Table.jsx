@@ -4,13 +4,13 @@ import isPropValid from "@emotion/is-prop-valid";
 import { StyleSheetManager } from "styled-components";
 import LoadingAnimation from "../loadingAnimation/LoadingAnimation";
 
-export default function Table({ results }) {
+export default function Table({ results, setSelectedRow }) {
   const [loader, setLoader] = useState(true);
   const [rows, setRows] = useState();
 
   useEffect(() => {
+    setRows(results);
     const timeout = setTimeout(() => {
-      setRows(results);
       setLoader(false);
     }, 1000);
     return () => clearTimeout(timeout);
@@ -39,7 +39,7 @@ export default function Table({ results }) {
     },
     {
       name: "Mass",
-      selector: (row) => row.mass || "N/A",
+      selector: (row) => row.mass || 0,
       sortable: true,
     },
     {
@@ -62,6 +62,17 @@ export default function Table({ results }) {
     noRowsPerPage: true,
   };
 
+  const handleRowSelect = (row) => {
+    const coordinates = [row.reclong, row.reclat];
+    const country = row?.locationInfo?.country;
+    const mass = row?.mass;
+    setSelectedRow({ coordinates, country, mass, isSelected: true})
+  }
+
+  const handleRowUnselect = (row) => {
+    setSelectedRow()
+  }
+
   return (
     <StyleSheetManager shouldForwardProp={isPropValid}>
       <DataTable
@@ -69,7 +80,6 @@ export default function Table({ results }) {
         columns={columns}
         data={rows}
         striped
-        dense
         fixedHeader
         pagination
         highlightOnHover
@@ -77,6 +87,9 @@ export default function Table({ results }) {
         progressPending={loader}
         progressComponent={<LoadingAnimation />}
         paginationComponentOptions={paginationComponentOptions}
+        onRowClicked={handleRowSelect}
+        onRowMouseEnter={handleRowSelect}
+        onRowMouseLeave={handleRowUnselect}
       />
     </StyleSheetManager>
   );

@@ -15,6 +15,7 @@ export default function Home() {
   const [ yearSliderV2, setYearSliderV2 ] = useState(2023);
   const [ nameSearch,setNameSearch] = useState("");
   const [ recSearch,setRecSearch] = useState("");
+  const [selectedRow, setSelectedRow] = useState(undefined);
 
   //filter Mass with inputs from slider
   function filterMass(meteoriteData){
@@ -38,14 +39,12 @@ export default function Home() {
   const results = [...meteoriteData].filter(filterYear).filter(filterMass).filter(filterName).filter(filterRecClass)
 
 
-
-
   return (
     <div className="flex flex-col justify-between">
       <Header />
       <main className="flex-1 lg:grid lg:grid-cols-10 flex flex-col pt-12 px-12 gap-4 min-h-full">
         <div className="lg:col-span-6  lg:min-w-[500px] min-w-[300px]">
-          <Display results={results} />
+          <Display results={results} selectedRow={selectedRow} />
         </div>
         <div className="lg:col-span-4 flex flex-col justify-start gap-4">
           <div className="">
@@ -67,7 +66,7 @@ export default function Home() {
             />
           </div>
           <div className="">
-            <Table results={results} />
+            <Table results={results} setSelectedRow={setSelectedRow} />
           </div>
         </div>
       </main>
