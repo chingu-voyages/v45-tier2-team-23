@@ -28,11 +28,11 @@ export default function Home() {
   }
   // filter name with text input
   function filterName(meteoriteData){
-    return nameSearch.toLowerCase() === '' ? meteoriteData : meteoriteData.name.toLowerCase().includes(nameSearch);
+    return nameSearch.toLowerCase() === '' ? meteoriteData : meteoriteData.name.toLowerCase().includes(nameSearch.toLowerCase());
   }
   // filter Rec Class with text input
   function filterRecClass(meteoriteData){
-    return recSearch.toLowerCase() === '' ? meteoriteData : meteoriteData.recclass.toLowerCase().includes(recSearch);
+    return recSearch.toLowerCase() === '' ? meteoriteData : meteoriteData.recclass.toLowerCase().includes(recSearch.toLowerCase());
   }
   // manipulated data variable  //
   const results = [...meteoriteData].filter(filterYear).filter(filterMass).filter(filterName).filter(filterRecClass)
