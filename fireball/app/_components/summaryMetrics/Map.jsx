@@ -124,7 +124,7 @@ export default function Map({ results, selectedRow }) {
                 .on('mouseout', (d) => {
                     tooltip.transition().duration(500).style('opacity', 0);
                 });
-                
+
         paths.on('mouseover', (e, d) => {
             tooltip.transition().duration(200).style('opacity', 0.9);
             tooltip
@@ -134,7 +134,7 @@ export default function Map({ results, selectedRow }) {
                         d.countryStrikeInfo ? d.countryStrikeInfo : 'N/A'
                         }`
                     : `Country: ${d.country}<br/>Average Mass: ${
-                        Math.round(d.countryStrikeInfo) ? Math.round(d.countryStrikeInfo) : 'N/A'
+                        d.countryStrikeInfo ? parseFloat(d.countryStrikeInfo.toFixed(3)).toString() : 'N/A'
                         }`
                 )
                 .style('left', e.pageX + 'px')
