@@ -26,7 +26,8 @@ export default function Table({ results, setSelectedRow }) {
       name: "Year",
       selector: (row) => {
         if (row.year) {
-          return row.year.substring(0, 4);
+          const year = new Date(row.year);
+          return year.getFullYear().toString();
         }
         return "N/A";
       },
@@ -39,8 +40,9 @@ export default function Table({ results, setSelectedRow }) {
     },
     {
       name: "Mass",
-      selector: (row) => row.mass || 0,
+      selector: (row) => row.mass || "N/A",
       sortable: true,
+      sortFunction: massSort
     },
     {
       name: "Location",
@@ -93,4 +95,21 @@ export default function Table({ results, setSelectedRow }) {
       />
     </StyleSheetManager>
   );
+}
+
+
+const massSort = (rowA, rowB) => {
+
+  const a = Number(rowA.mass) || -1;
+  const b = Number(rowB.mass) || -1;
+
+  if (a > b) {
+    return 1;
+  }
+
+  if (b > a) {
+      return -1;
+  }
+
+  return 0;
 }

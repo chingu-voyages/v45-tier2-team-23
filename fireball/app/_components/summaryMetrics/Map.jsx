@@ -2,7 +2,7 @@ import * as d3 from "d3";
 import { legendColor } from 'd3-svg-legend';
 import { useEffect, useState, useRef } from "react"
 import geoJson from './countryGeoJson.json';
-import './Map.css';
+import '../../globals.css';
 
 export default function Map({ results, selectedRow }) {
     const [chartType, setChartType] = useState("totalStrikes");
@@ -109,13 +109,32 @@ export default function Map({ results, selectedRow }) {
             .on('mouseover', (e, d) => {
                 tooltip.transition().duration(200).style('opacity', 0.9);
                 tooltip
+                    .html(
+                        chartType === 'totalStrikes'
+                        ? `Country: ${d.country}<br/>Meteorite Strikes: ${
+                            d.countryStrikeInfo ? d.countryStrikeInfo : 'N/A'
+                            }`
+                        : `Country: ${d.country}<br/>Average Mass: ${
+                            Math.round(d.countryStrikeInfo) ? Math.round(d.countryStrikeInfo) : 'N/A'
+                            }`
+                    )
+                    .style('left', e.pageX + 'px')
+                    .style('top', e.pageY - 28 + 'px');
+                })
+                .on('mouseout', (d) => {
+                    tooltip.transition().duration(500).style('opacity', 0);
+                });
+
+        paths.on('mouseover', (e, d) => {
+            tooltip.transition().duration(200).style('opacity', 0.9);
+            tooltip
                 .html(
                     chartType === 'totalStrikes'
                     ? `Country: ${d.country}<br/>Meteorite Strikes: ${
                         d.countryStrikeInfo ? d.countryStrikeInfo : 'N/A'
                         }`
                     : `Country: ${d.country}<br/>Average Mass: ${
-                        Math.round(d.countryStrikeInfo) ? Math.round(d.countryStrikeInfo) : 'N/A'
+                        d.countryStrikeInfo ? parseFloat(d.countryStrikeInfo.toFixed(3)).toString() : 'N/A'
                         }`
                 )
                 .style('left', e.pageX + 'px')
@@ -213,6 +232,7 @@ export default function Map({ results, selectedRow }) {
                     value="totalStrikes"
                     checked={chartType === "totalStrikes"} // Check based on chartType value
                     onChange={() => setChartType("totalStrikes")}
+                    className="me-2"
                 />
                 Total strikes
                 </label>
@@ -223,6 +243,7 @@ export default function Map({ results, selectedRow }) {
                     value="avgMass"
                     checked={chartType === "avgMass"} // Check based on chartType value
                     onChange={() => setChartType("avgMass")}
+                    className="me-2"
                 />
                 Average strike mass
                 </label>
