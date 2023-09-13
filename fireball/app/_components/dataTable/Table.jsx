@@ -39,8 +39,9 @@ export default function Table({ results, setSelectedRow }) {
     },
     {
       name: "Mass",
-      selector: (row) => row.mass || 0,
+      selector: (row) => row.mass || "N/A",
       sortable: true,
+      sortFunction: massSort
     },
     {
       name: "Location",
@@ -93,4 +94,20 @@ export default function Table({ results, setSelectedRow }) {
       />
     </StyleSheetManager>
   );
+}
+
+const massSort = (rowA, rowB) => {
+
+  const a = Number(rowA.mass) || -1;
+  const b = Number(rowB.mass) || -1;
+
+  if (a > b) {
+    return 1;
+  }
+
+  if (b > a) {
+      return -1;
+  }
+
+  return 0;
 }
