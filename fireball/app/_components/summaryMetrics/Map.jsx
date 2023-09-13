@@ -132,7 +132,8 @@ export default function Map({ results, selectedRow }) {
         // remove previously plotted strike 
         svg.select("circle#tempCircle").remove();
         svg.select("circle#tempDot").remove();
-        svg.select("path#tempHighlight").classed("stroke-accent stroke-1",false).attr("id",null)
+        //svg.select("path#tempHighlight").classed("stroke-accent stroke-1",false).attr("id",null)
+        svg.select("path#tempHighlight").remove();
 
         // Display the country and position/mass of selected row from data table
         if (selectedRow) {
@@ -146,7 +147,19 @@ export default function Map({ results, selectedRow }) {
             const selectedPath = paths.filter((d) => d.country === selectedRow.country);
 
             // Highlight/unhighlight the country
-            selectedPath.classed("stroke-accent stroke-1",true).attr("id","tempHighlight");
+            svg
+                .append("path")
+                .attr("d", geoPathGenerator(geoJson.features.find(feature => { 
+                    if ('properties' in feature) {
+                        if ('name' in feature.properties) {
+                            return feature.properties.name === selectedRow.country
+                        }
+                    }
+                })))
+
+                .attr("fill-opacity", 0.25)
+                .classed("stroke-accent stroke-[0.5]", true)
+                .attr("id","tempHighlight");
 
             // Plot coordinates and size of strike on map based on the mass size of the row that is selected in table
             const xyStrikePosition = projection(selectedRow.coordinates)
@@ -157,14 +170,14 @@ export default function Map({ results, selectedRow }) {
                 .attr("cy", xyStrikePosition[1])
                 .attr("r", strikeMassScale(selectedRow?.mass))
                 .attr("id", "tempCircle") 
-                .classed("stroke-accent stroke-1", true)
+                .classed("stroke-accent stroke-[0.5]", true)
                 .attr("fill-opacity", "0.5");
                 
             svg
                 .append("circle")
                 .attr("cx", xyStrikePosition[0])
                 .attr("cy", xyStrikePosition[1])
-                .attr("r", 0.5)
+                .attr("r", 2)
                 .attr("id", "tempDot")
         }
 
