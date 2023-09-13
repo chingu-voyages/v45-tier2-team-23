@@ -115,7 +115,7 @@ export default function Map({ results, selectedRow }) {
                             d.countryStrikeInfo ? d.countryStrikeInfo : 'N/A'
                             }`
                         : `Country: ${d.country}<br/>Average Mass: ${
-                            Math.round(d.countryStrikeInfo) ? Math.round(d.countryStrikeInfo) : 'N/A'
+                            d.countryStrikeInfo ? parseFloat(d.countryStrikeInfo.toFixed(3)) : 'N/A'
                             }`
                     )
                     .style('left', e.pageX + 'px')
@@ -134,7 +134,7 @@ export default function Map({ results, selectedRow }) {
                         d.countryStrikeInfo ? d.countryStrikeInfo : 'N/A'
                         }`
                     : `Country: ${d.country}<br/>Average Mass: ${
-                        d.countryStrikeInfo ? parseFloat(d.countryStrikeInfo.toFixed(3)).toString() : 'N/A'
+                        d.countryStrikeInfo ? parseFloat(d.countryStrikeInfo.toFixed(3)) : 'N/A'
                         }`
                 )
                 .style('left', e.pageX + 'px')
