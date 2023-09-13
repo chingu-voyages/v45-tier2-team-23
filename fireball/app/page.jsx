@@ -9,7 +9,6 @@ import Display from "./_components/summaryMetrics/Display";
 
 export default function Home() {
   const [filteredDataSet, setFilteredDataSet] = useState(meteoriteData);
-  const [sortingMethod, setSortingMethod] = useState(undefined);
   const [ massSliderV1, setMassSliderV1 ] = useState(0);
   const [ massSliderV2, setMassSliderV2 ] = useState(23000000);
   const [ yearSliderV1, setYearSliderV1 ] = useState(500);
@@ -53,7 +52,6 @@ export default function Home() {
             <Search
               setFilteredDataSet={setFilteredDataSet}
               filteredDataSet={filteredDataSet}
-              setSortingMethod={setSortingMethod}
               massSliderV1={massSliderV1} 
               setMassSliderV1={setMassSliderV1} 
               massSliderV2={massSliderV2} 
