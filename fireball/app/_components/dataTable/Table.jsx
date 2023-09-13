@@ -97,6 +97,7 @@ export default function Table({ results, setSelectedRow }) {
   );
 }
 
+
 const massSort = (rowA, rowB) => {
 
   const a = Number(rowA.mass) || -1;
