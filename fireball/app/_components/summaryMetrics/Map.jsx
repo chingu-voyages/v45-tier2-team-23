@@ -160,9 +160,9 @@ export default function Map({ results, selectedRow }) {
             // Scale for mass circles
             const strikeMassScale = d3.scaleSqrt()
                 .domain([0,maxMassRef.current])
-                .range([0.5,25])
+                .range([0,500])
 
-            // Select the country who's row is currently selected on in the table.
+            // Select the country who's row is currently selected in the table.
             const selectedPath = paths.filter((d) => d.country === selectedRow.country);
 
             // Highlight/unhighlight the country
@@ -179,25 +179,27 @@ export default function Map({ results, selectedRow }) {
                 .attr("fill-opacity", 0.25)
                 .classed("stroke-accent stroke-[0.5]", true)
                 .attr("id","tempHighlight");
-
-            // Plot coordinates and size of strike on map based on the mass size of the row that is selected in table
-            const xyStrikePosition = projection(selectedRow.coordinates)
-
-            svg
-                .append("circle")
-                .attr("cx", xyStrikePosition[0])
-                .attr("cy", xyStrikePosition[1])
-                .attr("r", strikeMassScale(selectedRow?.mass))
-                .attr("id", "tempCircle") 
-                .classed("stroke-accent stroke-[0.5]", true)
-                .attr("fill-opacity", "0.5");
                 
-            svg
-                .append("circle")
-                .attr("cx", xyStrikePosition[0])
-                .attr("cy", xyStrikePosition[1])
-                .attr("r", 2)
-                .attr("id", "tempDot")
+            if (selectedRow.coordinates[0]) {
+                // Plot coordinates and size of strike on map based on the mass size of the row that is selected in table
+                const xyStrikePosition = projection(selectedRow.coordinates)
+
+                svg
+                    .append("circle")
+                    .attr("cx", xyStrikePosition[0])
+                    .attr("cy", xyStrikePosition[1])
+                    .attr("r", strikeMassScale(selectedRow?.mass))
+                    .attr("id", "tempCircle") 
+                    .classed("stroke-accent stroke-[0.5]", true)
+                    .attr("fill-opacity", "0.3");
+                    
+                svg
+                    .append("circle")
+                    .attr("cx", xyStrikePosition[0])
+                    .attr("cy", xyStrikePosition[1])
+                    .attr("r", 2)
+                    .attr("id", "tempDot")
+            }
         }
 
         

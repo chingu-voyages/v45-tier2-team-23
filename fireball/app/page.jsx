@@ -17,6 +17,8 @@ export default function Home() {
   const [ recSearch,setRecSearch] = useState("");
   const [selectedRow, setSelectedRow] = useState(undefined);
 
+  
+
   //filter Mass with inputs from slider
   function filterMass(meteoriteData){
     return meteoriteData.mass >= massSliderV1 && meteoriteData.mass <= massSliderV2 ;
@@ -37,7 +39,6 @@ export default function Home() {
   }
   // manipulated data variable  //
   const results = [...meteoriteData].filter(filterYear).filter(filterMass).filter(filterName).filter(filterRecClass)
-
 
   return (
     <div className="flex flex-col justify-between">
