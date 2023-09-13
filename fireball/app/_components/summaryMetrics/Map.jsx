@@ -85,6 +85,13 @@ export default function Map({ results, selectedRow }) {
         const paths = svg.selectAll("path")
             .data(Object.values(countryMeteoriteInfoArr, elem => elem.country))
 
+        //Create tooltip
+        const tooltip = d3
+        .select('body')
+        .append('div')
+        .attr('class', 'tooltip')
+        .style('opacity', 0);
+
         // update/create paths
         paths
             .enter()
@@ -98,19 +105,7 @@ export default function Map({ results, selectedRow }) {
             })))
             .attr("stroke", "lightgrey")
             .attr("stroke-width", 0.3)
-            .attr("fill", elem => elem.countryStrikeInfo === null ? "lightgrey" : elem.countryStrikeInfo === 0 ? "#f9f9f9" : color(elem.countryStrikeInfo));
-        
-        // Update fill color when data changes
-        paths.attr("fill", elem => elem.countryStrikeInfo === null ? "lightgrey" : elem.countryStrikeInfo === 0 ? "#f9f9f9" : color(elem.countryStrikeInfo));
-        
-        //Create tooltip
-        const tooltip = d3
-            .select('body')
-            .append('div')
-            .attr('class', 'tooltip')
-            .style('opacity', 0);
-
-        paths
+            .attr("fill", elem => elem.countryStrikeInfo === null ? "lightgrey" : elem.countryStrikeInfo === 0 ? "#f9f9f9" : color(elem.countryStrikeInfo))
             .on('mouseover', (e, d) => {
                 tooltip.transition().duration(200).style('opacity', 0.9);
                 tooltip
@@ -131,6 +126,9 @@ export default function Map({ results, selectedRow }) {
             });
 
         
+        // Update fill color when data changes
+        paths.attr("fill", elem => elem.countryStrikeInfo === null ? "lightgrey" : elem.countryStrikeInfo === 0 ? "#f9f9f9" : color(elem.countryStrikeInfo));
+
         // remove previously plotted strike 
         svg.select("circle#tempCircle").remove();
         svg.select("circle#tempDot").remove();
@@ -138,12 +136,11 @@ export default function Map({ results, selectedRow }) {
 
         // Display the country and position/mass of selected row from data table
         if (selectedRow) {
-
+            
             // Scale for mass circles
             const strikeMassScale = d3.scaleSqrt()
                 .domain([0,maxMassRef.current])
                 .range([0.5,25])
-
 
             // Select the country who's row is currently selected on in the table.
             const selectedPath = paths.filter((d) => d.country === selectedRow.country);
