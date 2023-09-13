@@ -7,7 +7,6 @@ export default function ResetButton(props) {
     setYearSliderV2,
     setNameSearch,
     setRecSearch,
-    setSort,
     setFilteredDataSet,
   } = props;
 
@@ -17,15 +16,14 @@ export default function ResetButton(props) {
     const slider2 = document.getElementById("YearSlider");
     slider.value1 = 0;
     slider.value2 = 23000000;
-    slider2.value1 = 500;
+    slider2.value1 = 800;
     slider2.value2 = 2023;
     setMassSliderV1(0);
     setMassSliderV2(23000000);
-    setYearSliderV1(500);
+    setYearSliderV1(800);
     setYearSliderV2(2023);
     setNameSearch("");
     setRecSearch("");
-    setSort("ATOZ");
     setFilteredDataSet(meteoriteData);
   }
 
