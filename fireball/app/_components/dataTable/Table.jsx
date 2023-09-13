@@ -26,7 +26,8 @@ export default function Table({ results, setSelectedRow }) {
       name: "Year",
       selector: (row) => {
         if (row.year) {
-          return row.year.substring(0, 4);
+          const year = new Date(row.year);
+          return year.getFullYear().toString();
         }
         return "N/A";
       },
