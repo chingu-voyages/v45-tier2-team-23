@@ -1,4 +1,3 @@
-import meteoriteData from "public/meteoriteData.json";
 import React, { useEffect, useRef } from "react";
 
 export default function Sliders(props) {
@@ -11,24 +10,22 @@ export default function Sliders(props) {
     setYearSliderV1,
     yearSliderV2,
     setYearSliderV2,
-    setFilteredDataSet,
   } = props;
+
 
   // Required To Prevent "ReferenceError: HTMLElement"
   useEffect(() => {
     import("toolcool-range-slider");
   });
 
+
   // Mass Slider detection to trigger Year Function  //
   const massSliderRef = useRef(null);
   useEffect(() => {
     const slider = massSliderRef.current;
     const onChange = (e) => {
-      const val1 = e.detail.value1;
-      const val2 = e.detail.value2;
-      setMassSliderV1(val1);
-      setMassSliderV2(val2);
-      MassSliderFilter(val1, val2);
+      setMassSliderV1(e.detail.value1)
+      setMassSliderV2(e.detail.value2)
     };
     slider?.addEventListener("change", onChange);
     return () => {
@@ -36,24 +33,14 @@ export default function Sliders(props) {
     };
   }, []);
 
-  // Mass Slider Filter Function //
-  function MassSliderFilter(massSliderV1, massSliderV2) {
-    const filteredData = [...meteoriteData].filter((elem) => {
-      return elem.mass > massSliderV1 && elem.mass < massSliderV2;
-    });
-    setFilteredDataSet(filteredData);
-  }
 
   // YEAR Slider detection to trigger Year Function //
   const yearSliderRef = useRef(null);
   useEffect(() => {
     const slider = yearSliderRef.current;
     const onChange = (e) => {
-      const val1 = e.detail.value1;
-      const val2 = e.detail.value2;
-      setYearSliderV1(val1);
-      setYearSliderV2(val2);
-      YearSliderFilter(val1, val2);
+      setYearSliderV1(e.detail.value1)
+      setYearSliderV2(e.detail.value2)
     };
     slider?.addEventListener("change", onChange);
     return () => {
@@ -61,24 +48,15 @@ export default function Sliders(props) {
     };
   }, []);
 
-  // Year Slider Filter Function //
-  function YearSliderFilter(YearVal1, YearVal2) {
-    const filteredData = [...meteoriteData].filter((elem) => {
-      const date = new Date(elem.year);
-      const year = date.getFullYear();
-      return year > YearVal1 && year < YearVal2;
-    });
-    setFilteredDataSet(filteredData);
-  }
 
   return (
     <div className="flex flex-col">
       {/* Mass Label and Selected Values */}
       <div>
         <h5 className="flex justify-between mb-1 text-textColor">
-          Mass:
+          Mass: (kg)
           <span>
-            {massSliderV1}-{massSliderV2}
+            {massSliderV1/1000}-{massSliderV2/1000}
           </span>
         </h5>
       </div>
