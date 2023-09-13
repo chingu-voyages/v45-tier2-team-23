@@ -4,17 +4,24 @@ import ResetButton from "./ResetFilter";
 import Sliders from "./Sliders";
 
 export default function Search(props) {
-  const { setFilteredDataSet, filteredDataSet, setSortingMethod } = props;
-  const [massSliderV1, setMassSliderV1] = useState(0);
-  const [massSliderV2, setMassSliderV2] = useState(23000000);
-  const [yearSliderV1, setYearSliderV1] = useState(500);
-  const [yearSliderV2, setYearSliderV2] = useState(2023);
-  const [Sort, setSort] = useState("ATOZ");
-  const [nameSearch, setNameSearch] = useState("");
-  const [recSearch, setRecSearch] = useState("");
+  const { 
+    setFilteredDataSet, 
+    filteredDataSet, 
+    nameSearch,
+    recSearch, 
+    setNameSearch,
+    setRecSearch, 
+    massSliderV1, 
+    setMassSliderV1, 
+    massSliderV2, 
+    setMassSliderV2, 
+    yearSliderV1, 
+    setYearSliderV1, 
+    yearSliderV2, 
+    setYearSliderV2 
+  } = props;
 
   return (
-    // <div className="border items-center border-slate-700 p-4">
     <div className="flex items-center border-slate-700 min-w-fit justify-center md:py-4">
       <div className="basis-4/6 pr-1 min-w-fit">
         <Sliders
@@ -26,12 +33,10 @@ export default function Search(props) {
           setYearSliderV1={setYearSliderV1}
           yearSliderV2={yearSliderV2}
           setYearSliderV2={setYearSliderV2}
-          setFilteredDataSet={setFilteredDataSet}
         />
       </div>
       <div className="flex flex-col items-center mt-2 pl-10 basis-4/12">
         <FilterInputs
-          setFilteredDataSet={setFilteredDataSet}
           nameSearch={nameSearch}
           setNameSearch={setNameSearch}
           recSearch={recSearch}
@@ -44,7 +49,6 @@ export default function Search(props) {
           setYearSliderV2={setYearSliderV2}
           setNameSearch={setNameSearch}
           setRecSearch={setRecSearch}
-          setSort={setSort}
           filteredDataSet={filteredDataSet}
           setFilteredDataSet={setFilteredDataSet}
         />
