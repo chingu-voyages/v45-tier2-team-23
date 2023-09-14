@@ -42,7 +42,7 @@ export default function Table({ results, setSelectedRow }) {
     {
       
       name: "Mass",
-      selector: (row) => row.mass || "N/A",
+      selector: (row) => row.mass/1000 || "N/A",
       sortable: true,
       sortFunction: massSort
     },
