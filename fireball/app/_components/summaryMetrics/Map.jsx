@@ -156,7 +156,6 @@ export default function Map({ results, selectedRow }) {
 
         // Display the country and position/mass of selected row from data table
         if (selectedRow) {
-            
             // Scale for mass circles
             const strikeMassScale = d3.scaleSqrt()
                 .domain([0,maxMassRef.current])
