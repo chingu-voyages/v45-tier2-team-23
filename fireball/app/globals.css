@@ -133,6 +133,8 @@ table {
 
 body {
   min-height: 100vh; /* Ensure the body covers the entire viewport height */
+  display: flex;
+  flex-direction: column;
 }
 
 .tooltip {
