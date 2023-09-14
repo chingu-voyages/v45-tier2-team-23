@@ -5,7 +5,7 @@ import geoJson from './countryGeoJson.json';
 import '../../globals.css';
 
 export default function Map({ results, selectedRow }) {
-    const [chartType, setChartType] = useState("totalStrikes");
+    const [chartType, setChartType] = useState("avgMass");
     const { current: countryMeteoriteInfo } = useRef({});
     const svgRef = useRef();
     let maxMassRef = useRef(0);
@@ -225,28 +225,28 @@ export default function Map({ results, selectedRow }) {
     return (
         <>
             <svg ref={svgRef}  viewBox="0 0 650 400" width="100%" height="100%"  />
-            <form className="flex items-center justify-center gap-2">
+            <form className="flex items-center justify-center gap-2"> 
                 <label>
-                <input
-                    type="radio"
-                    name="option"
-                    value="totalStrikes"
-                    checked={chartType === "totalStrikes"} // Check based on chartType value
-                    onChange={() => setChartType("totalStrikes")}
-                    className="me-2"
-                />
-                Total strikes
+                    <input
+                        type="radio"
+                        name="option"
+                        value="avgMass"
+                        checked={chartType === "avgMass"} // Check based on chartType value
+                        onChange={() => setChartType("avgMass")}
+                        className="me-2"
+                    />
+                    Average strike mass
                 </label>
                 <label>
-                <input
-                    type="radio"
-                    name="option"
-                    value="avgMass"
-                    checked={chartType === "avgMass"} // Check based on chartType value
-                    onChange={() => setChartType("avgMass")}
-                    className="me-2"
-                />
-                Average strike mass
+                    <input
+                        type="radio"
+                        name="option"
+                        value="totalStrikes"
+                        checked={chartType === "totalStrikes"} // Check based on chartType value
+                        onChange={() => setChartType("totalStrikes")}
+                        className="me-2"
+                    />
+                Total strikes
                 </label>
             </form>
         </>
