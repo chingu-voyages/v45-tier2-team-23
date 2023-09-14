@@ -3,6 +3,7 @@ import DataTable from "react-data-table-component";
 import isPropValid from "@emotion/is-prop-valid";
 import { StyleSheetManager } from "styled-components";
 import LoadingAnimation from "../loadingAnimation/LoadingAnimation";
+import '../../globals.css';
 
 export default function Table({ results, setSelectedRow }) {
   const [loader, setLoader] = useState(true);
@@ -56,9 +57,9 @@ export default function Table({ results, setSelectedRow }) {
     headRow: {
       style: {
         color: "#FFFFFF",
-        backgroundColor: "rgba(16, 69, 71, 1)",
+        backgroundColor: "rgba(16, 69, 71, 1)"
       },
-    },
+    }
   };
 
   const paginationComponentOptions = {
@@ -75,6 +76,7 @@ export default function Table({ results, setSelectedRow }) {
   const handleRowUnselect = (row) => {
     setSelectedRow()
   }
+
 
   return (
     <StyleSheetManager shouldForwardProp={isPropValid}>
