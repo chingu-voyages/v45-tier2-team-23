@@ -65,7 +65,7 @@ export default function Home() {
               setRecSearch={setRecSearch} 
             />
           </div>
-          <div className="">
+          <div>
             <Table results={results} setSelectedRow={setSelectedRow} />
           </div>
         </div>
