@@ -5,7 +5,7 @@ import geoJson from './countryGeoJson.json';
 import '../../globals.css';
 
 export default function Map({ results, selectedRow }) {
-    const [chartType, setChartType] = useState("totalStrikes");
+    const [chartType, setChartType] = useState("avgMass");
     const { current: countryMeteoriteInfo } = useRef({});
     const svgRef = useRef();
     let maxMassRef = useRef(0);
@@ -225,28 +225,28 @@ export default function Map({ results, selectedRow }) {
     return (
         <>
             <svg ref={svgRef}  viewBox="0 0 650 400" width="100%" height="100%"  />
-            <form className="flex items-center justify-center gap-2">
+            <form className="flex items-center justify-center gap-2"> 
                 <label>
-                <input
-                    type="radio"
-                    name="option"
-                    value="totalStrikes"
-                    checked={chartType === "totalStrikes"} // Check based on chartType value
-                    onChange={() => setChartType("totalStrikes")}
-                    className="me-2"
-                />
-                Total strikes
+                    <input
+                        type="radio"
+                        name="option"
+                        value="avgMass"
+                        checked={chartType === "avgMass"} // Check based on chartType value
+                        onChange={() => setChartType("avgMass")}
+                        className="me-2"
+                    />
+                    Average strike mass
                 </label>
                 <label>
-                <input
-                    type="radio"
-                    name="option"
-                    value="avgMass"
-                    checked={chartType === "avgMass"} // Check based on chartType value
-                    onChange={() => setChartType("avgMass")}
-                    className="me-2"
-                />
-                Average strike mass
+                    <input
+                        type="radio"
+                        name="option"
+                        value="totalStrikes"
+                        checked={chartType === "totalStrikes"} // Check based on chartType value
+                        onChange={() => setChartType("totalStrikes")}
+                        className="me-2"
+                    />
+                Total strikes
                 </label>
             </form>
         </>
@@ -292,30 +292,42 @@ function getLabelFormat(maxDomain, chartType) {
 // creates a { country: info } object where info can either be avgMass or strikeNum
 function filterResults (results, chartType) {
     // Create a { country: strikeNum } object made up of just the filtered data
-    const newMeteoriteInfo = {}
+    const strikeTotal = {}
+    const massTotal = {}
+    const massAverage = {}
+
     results.forEach(elem =>  {
         if ('locationInfo' in elem) {
             const country = elem.locationInfo.country;
             if (country) {
                 if (chartType === "avgMass") {
-                    if (newMeteoriteInfo[country]) {
+                    if (strikeTotal[country]) {
                         if (elem.mass) {
-                            newMeteoriteInfo[country] += Number(elem.mass)/1000; // Converts grams to kgs
+                            massTotal[country] += Number(elem.mass)/1000; // Converts grams to kgs
+                            strikeTotal[country] += 1;
                         }
                     } else {
                         if (elem.mass) {
-                            newMeteoriteInfo[country] = Number(elem.mass)/1000; // Converts grams to kgs
+                            massTotal[country] = Number(elem.mass)/1000; // Converts grams to kgs
+                            strikeTotal[country] = 1;
                         }
                     }
                 } else {  
-                    if (newMeteoriteInfo[country]) {
-                        newMeteoriteInfo[country] += 1;
+                    if (strikeTotal[country]) {
+                        strikeTotal[country] += 1;
                     } else {
-                        newMeteoriteInfo[country] = 1;
+                        strikeTotal[country] = 1;
                     }
                 }
             }
         }
     })
-    return newMeteoriteInfo
+
+    if (chartType === "avgMass") {
+        Object.keys(massTotal).forEach(key => {
+            massAverage[key] = massTotal[key]/strikeTotal[key];
+          });
+    }
+
+    return chartType === "avgMass" ? massAverage : strikeTotal;
 }
