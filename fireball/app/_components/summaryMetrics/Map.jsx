@@ -292,30 +292,42 @@ function getLabelFormat(maxDomain, chartType) {
 // creates a { country: info } object where info can either be avgMass or strikeNum
 function filterResults (results, chartType) {
     // Create a { country: strikeNum } object made up of just the filtered data
-    const newMeteoriteInfo = {}
+    const strikeTotal = {}
+    const massTotal = {}
+    const massAverage = {}
+
     results.forEach(elem =>  {
         if ('locationInfo' in elem) {
             const country = elem.locationInfo.country;
             if (country) {
                 if (chartType === "avgMass") {
-                    if (newMeteoriteInfo[country]) {
+                    if (strikeTotal[country]) {
                         if (elem.mass) {
-                            newMeteoriteInfo[country] += Number(elem.mass)/1000; // Converts grams to kgs
+                            massTotal[country] += Number(elem.mass)/1000; // Converts grams to kgs
+                            strikeTotal[country] += 1;
                         }
                     } else {
                         if (elem.mass) {
-                            newMeteoriteInfo[country] = Number(elem.mass)/1000; // Converts grams to kgs
+                            massTotal[country] = Number(elem.mass)/1000; // Converts grams to kgs
+                            strikeTotal[country] = 1;
                         }
                     }
                 } else {  
-                    if (newMeteoriteInfo[country]) {
-                        newMeteoriteInfo[country] += 1;
+                    if (strikeTotal[country]) {
+                        strikeTotal[country] += 1;
                     } else {
-                        newMeteoriteInfo[country] = 1;
+                        strikeTotal[country] = 1;
                     }
                 }
             }
         }
     })
-    return newMeteoriteInfo
+
+    if (chartType === "avgMass") {
+        Object.keys(massTotal).forEach(key => {
+            massAverage[key] = massTotal[key]/strikeTotal[key];
+          });
+    }
+
+    return chartType === "avgMass" ? massAverage : strikeTotal;
 }
