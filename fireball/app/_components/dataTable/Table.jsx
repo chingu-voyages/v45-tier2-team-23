@@ -40,6 +40,7 @@ export default function Table({ results, setSelectedRow }) {
       sortable: true,
     },
     {
+      
       name: "Mass",
       selector: (row) => row.mass || "N/A",
       sortable: true,
