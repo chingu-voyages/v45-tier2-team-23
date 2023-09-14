@@ -91,6 +91,7 @@ video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  box-sizing: content-box;
 }
 /* HTML5 display-role reset for older browsers */
 article,
@@ -131,8 +132,14 @@ table {
 
 /* End of Reset CSS */
 
+__className_20951f {
+  min-height: 100vh;
+}
+
 body {
   min-height: 100vh; /* Ensure the body covers the entire viewport height */
+  display: flex;
+  flex-direction: column;
 }
 
 .tooltip {
