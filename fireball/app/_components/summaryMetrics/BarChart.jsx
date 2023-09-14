@@ -13,6 +13,8 @@ export default function BarChart({ results }) {
   });
 
   const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
     scales: {
       x: {
         title: {
@@ -49,6 +51,8 @@ export default function BarChart({ results }) {
   });
 
   const chartOptionsRecclass = {
+    responsive: true,
+    maintainAspectRatio: false,
     scales: {
       x: {
         title: {
@@ -79,14 +83,20 @@ export default function BarChart({ results }) {
 
   return (
     <div className="mt-4">
-      <div className={`${chartType === "composition" ? "hidden" : ""}`}>
-        <Bar data={chartData} options={chartOptions} className="w-100" />
+      <div
+        className={`graph-container ${
+          chartType === "composition" ? "hidden" : ""
+        }`}
+      >
+        <Bar data={chartData} options={chartOptions} className="canvas" />
       </div>
-      <div className={`${chartType === "year" ? "hidden" : ""}`}>
+      <div
+        className={`graph-container ${chartType === "year" ? "hidden" : ""}`}
+      >
         <Bar
           data={chartDataRecclass}
           options={chartOptionsRecclass}
-          className="w-100"
+          className="canvas"
         />
       </div>
       <form className="flex items-center justify-center gap-2 mt-4">
