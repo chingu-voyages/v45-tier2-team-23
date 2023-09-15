@@ -5,20 +5,21 @@ import Sliders from "./Sliders";
 
 export default function Search(props) {
   const { 
-    setFilteredDataSet, 
-    filteredDataSet, 
+    setFilteredDataSet,
+    filteredDataSet,
     nameSearch,
-    recSearch, 
+    recSearch,
     setNameSearch,
-    setRecSearch, 
-    massSliderV1, 
-    setMassSliderV1, 
-    massSliderV2, 
-    setMassSliderV2, 
-    yearSliderV1, 
-    setYearSliderV1, 
-    yearSliderV2, 
-    setYearSliderV2 
+    setRecSearch,
+    massSliderV1,
+    setMassSliderV1,
+    massSliderV2,
+    setMassSliderV2,
+    yearSliderV1,
+    setYearSliderV1,
+    yearSliderV2,
+    setYearSliderV2,
+    setIsMassSliderActive
   } = props;
 
   return (
@@ -33,6 +34,7 @@ export default function Search(props) {
           setYearSliderV1={setYearSliderV1}
           yearSliderV2={yearSliderV2}
           setYearSliderV2={setYearSliderV2}
+          setIsMassSliderActive={setIsMassSliderActive}
         />
       </div>
       <div className="flex flex-col items-center mt-2 basis-4/12">
@@ -51,6 +53,7 @@ export default function Search(props) {
           setRecSearch={setRecSearch}
           filteredDataSet={filteredDataSet}
           setFilteredDataSet={setFilteredDataSet}
+          setIsMassSliderActive={setIsMassSliderActive}
         />
       </div>
     </div>

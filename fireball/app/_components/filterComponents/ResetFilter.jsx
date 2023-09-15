@@ -8,6 +8,7 @@ export default function ResetButton(props) {
     setNameSearch,
     setRecSearch,
     setFilteredDataSet,
+    setIsMassSliderActive
   } = props;
 
   // Reset sorts and filters back to default //
@@ -25,6 +26,7 @@ export default function ResetButton(props) {
     setNameSearch("");
     setRecSearch("");
     setFilteredDataSet(meteoriteData);
+    setIsMassSliderActive(false);
   }
 
   return (
