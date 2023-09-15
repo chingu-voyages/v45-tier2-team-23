@@ -16,6 +16,8 @@ export default function Home() {
   const [nameSearch, setNameSearch] = useState("");
   const [recSearch, setRecSearch] = useState("");
   const [selectedRow, setSelectedRow] = useState(undefined);
+  const [isMassSliderActive, setIsMassSliderActive] = useState(false);
+
 
   //filter Mass with inputs from slider
   function filterMass(meteoriteData) {
@@ -42,11 +44,19 @@ export default function Home() {
       : meteoriteData.recclass.toLowerCase().includes(recSearch.toLowerCase());
   }
   // manipulated data variable  //
-  const results = [...meteoriteData]
+  const results = (isMassSliderActive === false ? 
+    [...meteoriteData]
+    .filter(filterYear)
+    .filter(filterName)
+    .filter(filterRecClass)
+    :
+    [...meteoriteData]
     .filter(filterYear)
     .filter(filterMass)
     .filter(filterName)
-    .filter(filterRecClass);
+    .filter(filterRecClass)
+    )
+
 
   return (
     <>
@@ -72,6 +82,7 @@ export default function Home() {
               setNameSearch={setNameSearch}
               recSearch={recSearch}
               setRecSearch={setRecSearch}
+              setIsMassSliderActive={setIsMassSliderActive}
             />
           </div>
           <div>
