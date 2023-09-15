@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Map from "./Map";
 import BarChart from "./BarChart";
 
 export default function Display({ results, selectedRow }) {
   const [graphicDisplay, setGraphicDisplay] = useState("map");
+  const {current: unfilteredResults} = useRef(results)
 
   return (
     <div className="flex-auto">
@@ -29,7 +30,7 @@ export default function Display({ results, selectedRow }) {
           Bar Graph
         </button>
       </div>
-      {graphicDisplay === "map" && <Map results={results} selectedRow={selectedRow} />}
+      {graphicDisplay === "map" && <Map results={results} selectedRow={selectedRow} unfilteredResults={unfilteredResults} />}
       {graphicDisplay === "graph" && <BarChart results={results} />}
     </div>
   );
