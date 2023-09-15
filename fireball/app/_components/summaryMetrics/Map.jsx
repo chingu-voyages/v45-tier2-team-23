@@ -211,7 +211,7 @@ export default function Map({ results, selectedRow }) {
         const legendSequential = legendColor()
             .shapeWidth(15)
             .cells(getCells(maxDomain,chartType))
-            .title(chartType === "avgMass" ? "kgs" : "meteorites")
+            .title(chartType === "avgMass" ? "Kgs" : "Meteorites")
             .labelFormat(getLabelFormat(maxDomain,chartType))
             .orient("vertical")
             .scale(color)
