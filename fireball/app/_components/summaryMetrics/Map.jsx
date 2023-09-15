@@ -72,25 +72,29 @@ export default function Map({ results, selectedRow, unfilteredResults }) {
             .center([80, -10])
 
         // Path generator function
-        const geoPathGenerator = d3.geoPath().projection(projection);
+        const geoPathGenerator = d3
+            .geoPath()
+            .projection(projection);
 
         // Color scale and domain
         const domain = [0,chartType === "totalStrikes" && maxDomain <= 5 ? 5 : maxDomain];
-        const color = d3.scaleSequential(d3.interpolatePuRd)
+        const color = d3
+            .scaleSequential(d3.interpolatePuRd)
             .domain(domain)
         // Grab the SVG element
         const svg = d3.select(svgRef.current);
         
         // Select all paths and bind data
-        const paths = svg.selectAll("path")
+        const paths = svg
+            .selectAll("path")
             .data(Object.values(countryMeteoriteInfoArr, elem => elem.country))
 
         //Create tooltip
         const tooltip = d3
-        .select('body')
-        .append('div')
-        .attr('class', 'tooltip')
-        .style('opacity', 0);
+            .select('body')
+            .append('div')
+            .attr('class', 'tooltip')
+            .style('opacity', 0);
 
         // update/create paths
         paths
@@ -106,8 +110,11 @@ export default function Map({ results, selectedRow, unfilteredResults }) {
             .attr("stroke", "darkgrey")
             .attr("stroke-width", 0.3)
             .attr("fill", elem => elem.countryStrikeInfo === null ? "lightgrey" : elem.countryStrikeInfo === 0 ? "#f9f9f9" : color(elem.countryStrikeInfo))
-            .on('mouseover', (e, d) => {
-                tooltip.transition().duration(200).style('opacity', 0.9);
+                .on('mouseover', (e, d) => {
+                tooltip
+                    .transition()
+                    .duration(200)
+                    .style('opacity', 0.9);
                 tooltip
                     .html(
                         chartType === 'totalStrikes'
@@ -122,26 +129,36 @@ export default function Map({ results, selectedRow, unfilteredResults }) {
                     .style('top', e.pageY - 28 + 'px');
                 })
                 .on('mouseout', (d) => {
-                    tooltip.transition().duration(500).style('opacity', 0);
+                    tooltip
+                        .transition()
+                        .duration(500)
+                        .style('opacity', 0);
                 });
 
-        paths.on('mouseover', (e, d) => {
-            tooltip.transition().duration(200).style('opacity', 0.9);
-            tooltip
-                .html(
-                    chartType === 'totalStrikes'
-                    ? `Country: ${d.country}<br/>Meteorite Strikes: ${
-                        d.countryStrikeInfo ? d.countryStrikeInfo : 'N/A'
-                        }`
-                    : `Country: ${d.country}<br/>Average Mass: ${
-                        d.countryStrikeInfo ? parseFloat(d.countryStrikeInfo.toFixed(3)) : 'N/A'
-                        }`
-                )
+        paths
+            .on('mouseover', (e, d) => {
+                tooltip
+                    .transition()
+                    .duration(200)
+                    .style('opacity', 0.9);
+                tooltip
+                    .html(
+                        chartType === 'totalStrikes'
+                        ? `Country: ${d.country}<br/>Meteorite Strikes: ${
+                            d.countryStrikeInfo ? d.countryStrikeInfo : 'N/A'
+                            }`
+                        : `Country: ${d.country}<br/>Average Mass: ${
+                            d.countryStrikeInfo ? parseFloat(d.countryStrikeInfo.toFixed(3)) : 'N/A'
+                            }`
+                    )
                 .style('left', e.pageX + 'px')
                 .style('top', e.pageY - 28 + 'px');
             })
             .on('mouseout', (d) => {
-                tooltip.transition().duration(500).style('opacity', 0);
+                tooltip
+                    .transition()
+                    .duration(500)
+                    .style('opacity', 0);
             });
 
         
@@ -149,15 +166,22 @@ export default function Map({ results, selectedRow, unfilteredResults }) {
         paths.attr("fill", elem => elem.countryStrikeInfo === null ? "lightgrey" : elem.countryStrikeInfo === 0 ? "#f9f9f9" : color(elem.countryStrikeInfo));
 
         // remove previously plotted strike 
-        svg.select("circle#tempCircle").remove();
-        svg.select("circle#tempDot").remove();
+        svg
+            .select("circle#tempCircle")
+            .remove();
+        svg
+            .select("circle#tempDot")
+            .remove();
         //svg.select("path#tempHighlight").classed("stroke-accent stroke-1",false).attr("id",null)
-        svg.select("path#tempHighlight").remove();
+        svg
+            .select("path#tempHighlight")
+            .remove();
 
         // Display the country and position/mass of selected row from data table
         if (selectedRow) {
             // Scale for mass circles
-            const strikeMassScale = d3.scaleSqrt()
+            const strikeMassScale = d3
+                .scaleSqrt()
                 .domain([0,maxMassRef.current])
                 .range([0,500])
 
@@ -174,7 +198,6 @@ export default function Map({ results, selectedRow, unfilteredResults }) {
                         }
                     }
                 })))
-
                 .attr("fill-opacity", 0.25)
                 .classed("stroke-accent stroke-[0.5]", true)
                 .attr("id","tempHighlight");
