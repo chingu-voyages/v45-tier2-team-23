@@ -4,17 +4,17 @@ import { useEffect, useState, useRef } from "react"
 import geoJson from './countryGeoJson.json';
 import '../../globals.css';
 
-export default function Map({ results, selectedRow }) {
+export default function Map({ results, selectedRow, unfilteredResults }) {
     const [chartType, setChartType] = useState("avgMass");
     const { current: countryMeteoriteInfo } = useRef({});
     const svgRef = useRef();
     let maxMassRef = useRef(0);
 
-
     // On initial load create an object that corresponds to all countries in results and give them an initial value of 0
     // { country: 0 }
     useEffect(() => {
-        results.forEach(elem =>  {
+        // Using unfilteredResults so that when switching back from graph when filters have been set it knows what the whole data set looks like
+        unfilteredResults.forEach(elem =>  {
             maxMassRef.current = elem.mass ? Math.max(Number(elem.mass), maxMassRef.current) : 0;
 
             if ('locationInfo' in elem) {
@@ -103,7 +103,7 @@ export default function Map({ results, selectedRow }) {
                     }
                 }
             })))
-            .attr("stroke", "lightgrey")
+            .attr("stroke", "darkgrey")
             .attr("stroke-width", 0.3)
             .attr("fill", elem => elem.countryStrikeInfo === null ? "lightgrey" : elem.countryStrikeInfo === 0 ? "#f9f9f9" : color(elem.countryStrikeInfo))
             .on('mouseover', (e, d) => {
@@ -211,7 +211,7 @@ export default function Map({ results, selectedRow }) {
         const legendSequential = legendColor()
             .shapeWidth(15)
             .cells(getCells(maxDomain,chartType))
-            .title(chartType === "avgMass" ? "kgs" : "meteorites")
+            .title(chartType === "avgMass" ? "Kgs" : "Meteorites")
             .labelFormat(getLabelFormat(maxDomain,chartType))
             .orient("vertical")
             .scale(color)
@@ -226,7 +226,7 @@ export default function Map({ results, selectedRow }) {
         <>
             <svg ref={svgRef}  viewBox="0 0 650 400" width="100%" height="100%"  />
             <form className="flex items-center justify-center gap-2"> 
-                <label>
+                <label className="whitespace-nowrap">
                     <input
                         type="radio"
                         name="option"
@@ -235,9 +235,9 @@ export default function Map({ results, selectedRow }) {
                         onChange={() => setChartType("avgMass")}
                         className="me-2"
                     />
-                    Average strike mass
+                    Average Mass
                 </label>
-                <label>
+                <label className="whitespace-nowrap">
                     <input
                         type="radio"
                         name="option"
@@ -246,7 +246,7 @@ export default function Map({ results, selectedRow }) {
                         onChange={() => setChartType("totalStrikes")}
                         className="me-2"
                     />
-                Total strikes
+                Total Strikes
                 </label>
             </form>
         </>

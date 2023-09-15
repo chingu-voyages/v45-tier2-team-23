@@ -22,7 +22,7 @@ export default function Search(props) {
   } = props;
 
   return (
-    <div className="flex items-center border-slate-700 min-w-fit justify-center md:py-4">
+    <div className="flex flex-col sm:flex-row sm:items-center gap-2 border-slate-700 min-w-fit justify-center md:py-4">
       <div className="basis-4/6 pr-1 min-w-fit">
         <Sliders
           massSliderV1={massSliderV1}
@@ -35,7 +35,7 @@ export default function Search(props) {
           setYearSliderV2={setYearSliderV2}
         />
       </div>
-      <div className="flex flex-col items-center mt-2 pl-10 basis-4/12">
+      <div className="flex flex-col items-center mt-2 basis-4/12">
         <FilterInputs
           nameSearch={nameSearch}
           setNameSearch={setNameSearch}
