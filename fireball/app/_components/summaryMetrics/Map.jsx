@@ -135,31 +135,7 @@ export default function Map({ results, selectedRow, unfilteredResults }) {
                         .style('opacity', 0);
                 });
 
-        paths
-            .on('mouseover', (e, d) => {
-                tooltip
-                    .transition()
-                    .duration(200)
-                    .style('opacity', 0.9);
-                tooltip
-                    .html(
-                        chartType === 'totalStrikes'
-                        ? `Country: ${d.country}<br/>Meteorite Strikes: ${
-                            d.countryStrikeInfo ? d.countryStrikeInfo : 'N/A'
-                            }`
-                        : `Country: ${d.country}<br/>Average Mass: ${
-                            d.countryStrikeInfo ? parseFloat(d.countryStrikeInfo.toFixed(3)) : 'N/A'
-                            }`
-                    )
-                .style('left', e.pageX + 'px')
-                .style('top', e.pageY - 28 + 'px');
-            })
-            .on('mouseout', (d) => {
-                tooltip
-                    .transition()
-                    .duration(500)
-                    .style('opacity', 0);
-            });
+        
 
         
         // Update fill color when data changes
