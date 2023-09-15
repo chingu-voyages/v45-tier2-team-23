@@ -10,6 +10,7 @@ export default function Sliders(props) {
     setYearSliderV1,
     yearSliderV2,
     setYearSliderV2,
+    setIsMassSliderActive
   } = props;
 
 
@@ -24,8 +25,9 @@ export default function Sliders(props) {
   useEffect(() => {
     const slider = massSliderRef.current;
     const onChange = (e) => {
-      setMassSliderV1(e.detail.value1)
-      setMassSliderV2(e.detail.value2)
+      setMassSliderV1(e.detail.value1);
+      setMassSliderV2(e.detail.value2);
+      e.detail.value1 === 0 && e.detail.value2 === 23000000 ? setIsMassSliderActive(false):setIsMassSliderActive(true);
     };
     slider?.addEventListener("change", onChange);
     return () => {
@@ -39,8 +41,8 @@ export default function Sliders(props) {
   useEffect(() => {
     const slider = yearSliderRef.current;
     const onChange = (e) => {
-      setYearSliderV1(e.detail.value1)
-      setYearSliderV2(e.detail.value2)
+      setYearSliderV1(e.detail.value1);
+      setYearSliderV2(e.detail.value2);
     };
     slider?.addEventListener("change", onChange);
     return () => {
@@ -53,7 +55,7 @@ export default function Sliders(props) {
     <div className="flex flex-col">
       {/* Mass Label and Selected Values */}
       <div>
-        <h5 className="flex justify-between mb-1 text-textColor">
+        <h5 className="flex justify-between mb-2 text-textColor">
           Mass: (kg)
           <span>
             {massSliderV1/1000}-{massSliderV2/1000}
@@ -77,11 +79,11 @@ export default function Sliders(props) {
           max="23000000"
           // Style Attributes //
           slider-width="100%"
-          slider-height="7px"
+          slider-height="10px"
           slider-bg-fill="#77042B"
           slider-bg="#76877D"
-          pointer-width="15px"
-          pointer-height="15px"
+          pointer-width="20px"
+          pointer-height="20px"
           pointer-radius="5px"
           pointer-bg="#77042B"
           pointer-bg-hover="#CF9BCB"
@@ -97,7 +99,7 @@ export default function Sliders(props) {
       </div>
 
       {/* Year Label and Selected Values */}
-      <div className="my-1">
+      <div className="my-2">
         <h5 className="flex justify-between mb-1 text-textColor">
           Year:
           <span>
@@ -122,11 +124,11 @@ export default function Sliders(props) {
           max="2023"
           // Style Attributes //
           slider-width="100%"
-          slider-height="7px"
+          slider-height="10px"
           slider-bg-fill="#77042B"
           slider-bg="#76877D"
-          pointer-width="15px"
-          pointer-height="15px"
+          pointer-width="20px"
+          pointer-height="20px"
           pointer-radius="5px"
           pointer-bg="#77042B"
           pointer-bg-hover="#CF9BCB"
