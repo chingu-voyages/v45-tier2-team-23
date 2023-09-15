@@ -1,16 +1,9 @@
 import { Bar } from "react-chartjs-2";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Chart from "chart.js/auto";
 
 export default function BarChart({ results }) {
   const [chartType, setChartType] = useState("year");
-
-  const customStyles = {
-    canvas: {
-      width: "100%", // Use 100% width to fill the parent container
-      height: "auto", // Allow the height to adjust based on content
-    },
-  };
 
   // Bar chart - year
   const yearCounts = {};
@@ -20,6 +13,8 @@ export default function BarChart({ results }) {
   });
 
   const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
     scales: {
       x: {
         title: {
@@ -43,6 +38,7 @@ export default function BarChart({ results }) {
       {
         label: "Meteorite Strikes",
         data: Object.values(yearCounts),
+        backgroundColor: "#77042b",
       },
     ],
   };
@@ -55,6 +51,8 @@ export default function BarChart({ results }) {
   });
 
   const chartOptionsRecclass = {
+    responsive: true,
+    maintainAspectRatio: false,
     scales: {
       x: {
         title: {
@@ -78,42 +76,51 @@ export default function BarChart({ results }) {
       {
         label: "Meteorite Strikes",
         data: Object.values(recclassCounts),
+        backgroundColor: "#77042b",
       },
     ],
   };
 
   return (
-    <div>
-      <div className={`${chartType === "composition" ? "hidden" : ""}`}>
-        <Bar data={chartData} options={chartOptions} className="w-100" />
+    <div className="mt-4">
+      <div
+        className={`graph-container ${
+          chartType === "composition" ? "hidden" : ""
+        }`}
+      >
+        <Bar data={chartData} options={chartOptions} className="canvas" />
       </div>
-      <div className={`${chartType === "year" ? "hidden" : ""}`}>
+      <div
+        className={`graph-container ${chartType === "year" ? "hidden" : ""}`}
+      >
         <Bar
           data={chartDataRecclass}
           options={chartOptionsRecclass}
-          className="w-100"
+          className="canvas"
         />
       </div>
-      <form className="flex items-center justify-center gap-2">
-        <label>
+      <form className="flex items-center justify-center gap-2 mt-4">
+        <label className="flex items-center">
           <input
             type="radio"
             name="option"
             value="year"
             checked={chartType === "year"} // Check based on chartType value
             onChange={() => setChartType("year")}
+            className="me-2"
           />
           Year
         </label>
-        <label>
+        <label className="flex items-center">
           <input
             type="radio"
             name="option"
             value="composition"
             checked={chartType === "composition"} // Check based on chartType value
             onChange={() => setChartType("composition")}
+            className="me-2"
           />
-          Composition (Recclass)
+          Composition
         </label>
       </form>
     </div>
