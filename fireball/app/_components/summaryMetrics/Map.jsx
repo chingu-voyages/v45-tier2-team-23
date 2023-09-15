@@ -235,7 +235,7 @@ export default function Map({ results, selectedRow }) {
                         onChange={() => setChartType("avgMass")}
                         className="me-2"
                     />
-                    Average mass
+                    Average Mass
                 </label>
                 <label className="whitespace-nowrap">
                     <input
@@ -246,7 +246,7 @@ export default function Map({ results, selectedRow }) {
                         onChange={() => setChartType("totalStrikes")}
                         className="me-2"
                     />
-                Total strikes
+                Total Strikes
                 </label>
             </form>
         </>
