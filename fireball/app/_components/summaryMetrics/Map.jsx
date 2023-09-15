@@ -103,7 +103,7 @@ export default function Map({ results, selectedRow }) {
                     }
                 }
             })))
-            .attr("stroke", "lightgrey")
+            .attr("stroke", "darkgrey")
             .attr("stroke-width", 0.3)
             .attr("fill", elem => elem.countryStrikeInfo === null ? "lightgrey" : elem.countryStrikeInfo === 0 ? "#f9f9f9" : color(elem.countryStrikeInfo))
             .on('mouseover', (e, d) => {
