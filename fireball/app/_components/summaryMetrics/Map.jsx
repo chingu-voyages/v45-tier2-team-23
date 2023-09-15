@@ -226,7 +226,7 @@ export default function Map({ results, selectedRow }) {
         <>
             <svg ref={svgRef}  viewBox="0 0 650 400" width="100%" height="100%"  />
             <form className="flex items-center justify-center gap-2"> 
-                <label>
+                <label className="whitespace-nowrap">
                     <input
                         type="radio"
                         name="option"
@@ -235,9 +235,9 @@ export default function Map({ results, selectedRow }) {
                         onChange={() => setChartType("avgMass")}
                         className="me-2"
                     />
-                    Average strike mass
+                    Average mass
                 </label>
-                <label>
+                <label className="whitespace-nowrap">
                     <input
                         type="radio"
                         name="option"
