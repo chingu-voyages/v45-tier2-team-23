@@ -15,7 +15,7 @@ export default function Map({ results, selectedRow, unfilteredResults }) {
     useEffect(() => {
         // Using unfilteredResults so that when switching back from graph when filters have been set it knows what the whole data set looks like
         unfilteredResults.forEach(elem =>  {
-            maxMassRef.current = elem.mass ? Math.max(Number(elem.mass), maxMassRef.current) : 0;
+            maxMassRef.current = elem.mass ? Math.max(Number(elem.mass), maxMassRef.current) : maxMassRef.current;
 
             if ('locationInfo' in elem) {
                 const country = elem.locationInfo.country;
@@ -159,7 +159,7 @@ export default function Map({ results, selectedRow, unfilteredResults }) {
             const strikeMassScale = d3
                 .scaleSqrt()
                 .domain([0,maxMassRef.current])
-                .range([0,500])
+                .range([0,450])
 
             // Select the country who's row is currently selected in the table.
             const selectedPath = paths.filter((d) => d.country === selectedRow.country);
