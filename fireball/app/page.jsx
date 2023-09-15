@@ -51,7 +51,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main className="flex-1 lg:grid lg:grid-cols-10 flex flex-col pt-12 px-12 gap-4 min-h-full">
+      <main className="flex-1 lg: lg:grid lg:grid-cols-10 flex flex-col pt-12 px-12 gap-4 min-h-full">
         <div className="lg:col-span-6  lg:min-w-[500px] ">
           <Display results={results} selectedRow={selectedRow} />
         </div>
