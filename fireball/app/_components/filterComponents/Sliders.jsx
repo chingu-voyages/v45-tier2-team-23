@@ -10,6 +10,7 @@ export default function Sliders(props) {
     setYearSliderV1,
     yearSliderV2,
     setYearSliderV2,
+    setIsMassSliderActive
   } = props;
 
 
@@ -24,8 +25,12 @@ export default function Sliders(props) {
   useEffect(() => {
     const slider = massSliderRef.current;
     const onChange = (e) => {
-      setMassSliderV1(e.detail.value1)
-      setMassSliderV2(e.detail.value2)
+      setMassSliderV1(e.detail.value1);
+      setMassSliderV2(e.detail.value2);
+      setIsMassSliderActive(true);
+      if(e.detail.value1 === 0 && e.detail.value2 === 23000000){
+        setIsMassSliderActive(false);
+      }
     };
     slider?.addEventListener("change", onChange);
     return () => {
@@ -39,8 +44,8 @@ export default function Sliders(props) {
   useEffect(() => {
     const slider = yearSliderRef.current;
     const onChange = (e) => {
-      setYearSliderV1(e.detail.value1)
-      setYearSliderV2(e.detail.value2)
+      setYearSliderV1(e.detail.value1);
+      setYearSliderV2(e.detail.value2);
     };
     slider?.addEventListener("change", onChange);
     return () => {
