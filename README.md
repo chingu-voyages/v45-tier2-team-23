@@ -72,10 +72,10 @@ Deployed with Vercel 🚀.
 
 ## Team
 
-- @amirobinsonmuto 👩‍💻
-- @bot-jamesschulz 👨‍💻
-- @cgbridgewater 👨‍💻
-- @ldietz08 👩‍💻
+- [@amirobinsonmuto](https://github.com/amirobinsonmuto) 👩‍💻
+- [@bot-jamesschulz](https://github.com/bot-jamesschulz) 👨‍💻
+- [@cgbridgewater](https://github.com/cgbridgewater) 👨‍💻
+- [@ldietz08](https://github.com/ldietz08) 👩‍💻
 
 ## Feedback
 
