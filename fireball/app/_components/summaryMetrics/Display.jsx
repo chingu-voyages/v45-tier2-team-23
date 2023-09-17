@@ -8,7 +8,7 @@ export default function Display({ results, selectedRow }) {
 
   return (
     <div className="flex-auto">
-      <div className="flex flex-row items-center sm:justify-center bg-gray-200 sm:w-96 mx-auto p-2 gap-2 rounded-lg shadow-md">
+      <div className="flex flex-row items-center justify-center bg-gray-200 sm:w-96 mx-auto p-2 gap-2 rounded-lg shadow-md">
         <button
           className={`w-48 rounded-lg p-2 transition duration-900 ease-in-out ${
             graphicDisplay === "map"

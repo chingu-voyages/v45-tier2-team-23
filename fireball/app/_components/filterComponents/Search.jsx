@@ -37,7 +37,7 @@ export default function Search(props) {
           setIsMassSliderActive={setIsMassSliderActive}
         />
       </div>
-      <div className="flex flex-col items-center ml-2 mt-2 basis-4/12 rounded bg-lightAccent p-4 md:py-6">
+      <div className="flex flex-col items-center ml-2 mt-2 basis-4/12 p-4 md:py-6">
         <FilterInputs
           nameSearch={nameSearch}
           setNameSearch={setNameSearch}

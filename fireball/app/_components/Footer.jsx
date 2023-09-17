@@ -3,7 +3,7 @@ import { FaGithub } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-borderColor p-2 flex items-center justify-center gap-2 h-18">
+    <footer className="p-2.5 flex items-center justify-center gap-2 h-18">
       <a
         href="https://github.com/chingu-voyages/v45-tier2-team-23"
         target="_blank"
