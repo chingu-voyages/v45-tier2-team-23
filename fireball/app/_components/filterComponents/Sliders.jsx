@@ -52,8 +52,8 @@ export default function Sliders(props) {
   return (
     <div className="flex flex-col">
       {/* Mass Label and Selected Values */}
-      <div>
-        <h5 className="flex justify-between mb-2 text-textColor">
+      <div className="mb-2">
+        <h5 className="flex justify-between  text-textColor">
           Mass: (kg)
           <span>
             {massSliderV1 / 1000}-{massSliderV2 / 1000}
@@ -96,8 +96,8 @@ export default function Sliders(props) {
         ></tc-range-slider>
       </div>
       {/* Year Label and Selected Values */}
-      <div className="my-4">
-        <h5 className="flex justify-between mb-1 text-textColor">
+      <div className="my-2">
+        <h5 className="flex justify-between text-textColor">
           Year:
           <span>
             {yearSliderV1}-{yearSliderV2}

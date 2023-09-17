@@ -63,7 +63,7 @@ export default function Home() {
         <div className="lg:col-span-6  lg:min-w-[500px] ">
           <Display results={results} selectedRow={selectedRow} />
         </div>
-        <div className="lg:col-span-4 flex flex-col justify-start gap-4">
+        <div className="lg:col-span-4 flex flex-col justify-start">
           <div className="">
             <Search
               setFilteredDataSet={setFilteredDataSet}
