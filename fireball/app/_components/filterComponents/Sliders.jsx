@@ -10,15 +10,13 @@ export default function Sliders(props) {
     setYearSliderV1,
     yearSliderV2,
     setYearSliderV2,
-    setIsMassSliderActive
+    setIsMassSliderActive,
   } = props;
-
 
   // Required To Prevent "ReferenceError: HTMLElement"
   useEffect(() => {
     import("toolcool-range-slider");
   });
-
 
   // Mass Slider detection to trigger Year Function  //
   const massSliderRef = useRef(null);
@@ -27,14 +25,15 @@ export default function Sliders(props) {
     const onChange = (e) => {
       setMassSliderV1(e.detail.value1);
       setMassSliderV2(e.detail.value2);
-      e.detail.value1 === 0 && e.detail.value2 === 23000000 ? setIsMassSliderActive(false):setIsMassSliderActive(true);
+      e.detail.value1 === 0 && e.detail.value2 === 23000000
+        ? setIsMassSliderActive(false)
+        : setIsMassSliderActive(true);
     };
     slider?.addEventListener("change", onChange);
     return () => {
       slider?.removeEventListener("change", onChange);
     };
   }, []);
-
 
   // YEAR Slider detection to trigger Year Function //
   const yearSliderRef = useRef(null);
@@ -50,7 +49,6 @@ export default function Sliders(props) {
     };
   }, []);
 
-
   return (
     <div className="flex flex-col">
       {/* Mass Label and Selected Values */}
@@ -58,7 +56,7 @@ export default function Sliders(props) {
         <h5 className="flex justify-between mb-2 text-textColor">
           Mass: (kg)
           <span>
-            {massSliderV1/1000}-{massSliderV2/1000}
+            {massSliderV1 / 1000}-{massSliderV2 / 1000}
           </span>
         </h5>
       </div>

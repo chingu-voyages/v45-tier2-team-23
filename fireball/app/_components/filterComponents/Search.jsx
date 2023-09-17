@@ -4,7 +4,7 @@ import ResetButton from "./ResetFilter";
 import Sliders from "./Sliders";
 
 export default function Search(props) {
-  const { 
+  const {
     setFilteredDataSet,
     filteredDataSet,
     nameSearch,
@@ -19,7 +19,7 @@ export default function Search(props) {
     setYearSliderV1,
     yearSliderV2,
     setYearSliderV2,
-    setIsMassSliderActive
+    setIsMassSliderActive,
   } = props;
 
   return (
@@ -37,7 +37,7 @@ export default function Search(props) {
           setIsMassSliderActive={setIsMassSliderActive}
         />
       </div>
-      <div className="flex flex-col items-center mt-2 basis-4/12">
+      <div className="flex flex-col items-center ml-2 mt-2 basis-4/12 rounded bg-lightAccent p-5 md:py-6">
         <FilterInputs
           nameSearch={nameSearch}
           setNameSearch={setNameSearch}
