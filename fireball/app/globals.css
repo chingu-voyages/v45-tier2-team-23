@@ -160,3 +160,58 @@ body {
     height: 600px;
   }
 }
+
+
+/*  Radio Button Style */
+
+.form-group {
+  margin: 1rem 30px;
+  color: #104547;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+label {
+  cursor: pointer;
+  position: relative;
+  left: 10px;
+  font-size: 1rem;
+}
+
+label::before {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background-color: transparent;
+  border: 2px solid #104547;
+  border-radius: 50%;
+  top: 50%;
+  left: -2rem;
+  transform: translateY(-50%);
+  transition: border-color 400ms ease;
+}
+
+label::after {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background-color:  #77042b;
+  border: 2px solid  #77042b;
+  border-radius: 50%;
+  top: 50%;
+  left: -2rem;
+  transform: translateY(-50%) scale(0);
+  transition: transform 400ms ease;
+}
+
+input[type="radio"]:checked + label::before {
+  border-color: #77042b;
+}
+
+input[type="radio"]:checked + label::after {
+  transform: translateY(-50%) scale(0.6);
+}
