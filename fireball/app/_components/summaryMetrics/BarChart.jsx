@@ -99,9 +99,10 @@ export default function BarChart({ results }) {
           className="canvas"
         />
       </div>
-      <form className="flex items-center justify-center gap-2 mt-4">
-        <label className="flex items-center">
+      <form className="flex items-center justify-center mt-2">
+        <div className="form-group">
           <input
+            id="year"
             type="radio"
             name="option"
             value="year"
@@ -109,10 +110,13 @@ export default function BarChart({ results }) {
             onChange={() => setChartType("year")}
             className="me-2"
           />
-          Year
-        </label>
-        <label className="flex items-center">
+          <label htmlFor="year">
+            Year
+          </label>
+        </div>
+        <div className="form-group">
           <input
+            id="comp"
             type="radio"
             name="option"
             value="composition"
@@ -120,8 +124,10 @@ export default function BarChart({ results }) {
             onChange={() => setChartType("composition")}
             className="me-2"
           />
-          Composition
-        </label>
+          <label htmlFor="comp">
+            Composition
+          </label>
+        </div>
       </form>
     </div>
   );

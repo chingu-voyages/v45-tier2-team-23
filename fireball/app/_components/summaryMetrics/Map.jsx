@@ -224,9 +224,10 @@ export default function Map({ results, selectedRow, unfilteredResults }) {
     return (
         <>
             <svg ref={svgRef}  viewBox="0 0 650 400" width="100%" height="100%"  />
-            <form className="flex items-center justify-center gap-2"> 
-                <label className="whitespace-nowrap">
+            <form className="flex items-center justify-center"> 
+                <div className="form-group">
                     <input
+                        id="mass"
                         type="radio"
                         name="option"
                         value="avgMass"
@@ -234,10 +235,13 @@ export default function Map({ results, selectedRow, unfilteredResults }) {
                         onChange={() => setChartType("avgMass")}
                         className="me-2"
                     />
-                    Average Mass
-                </label>
-                <label className="whitespace-nowrap">
+                    <label htmlFor="mass">
+                        Average Mass
+                    </label>
+                </div>
+                <div className="form-group">
                     <input
+                        id="strikes"
                         type="radio"
                         name="option"
                         value="totalStrikes"
@@ -245,8 +249,10 @@ export default function Map({ results, selectedRow, unfilteredResults }) {
                         onChange={() => setChartType("totalStrikes")}
                         className="me-2"
                     />
-                Total Strikes
-                </label>
+                    <label htmlFor="strikes" className="">
+                        Total Strikes
+                    </label>
+                </div>
             </form>
         </>
     );
