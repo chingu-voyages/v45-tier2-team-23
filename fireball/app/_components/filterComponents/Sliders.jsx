@@ -13,12 +13,10 @@ export default function Sliders(props) {
     setIsMassSliderActive
   } = props;
 
-
   // Required To Prevent "ReferenceError: HTMLElement"
   useEffect(() => {
     import("toolcool-range-slider");
   });
-
 
   // Mass Slider detection to trigger Year Function  //
   const massSliderRef = useRef(null);
@@ -35,7 +33,6 @@ export default function Sliders(props) {
     };
   }, []);
 
-
   // YEAR Slider detection to trigger Year Function //
   const yearSliderRef = useRef(null);
   useEffect(() => {
@@ -49,7 +46,6 @@ export default function Sliders(props) {
       slider?.removeEventListener("change", onChange);
     };
   }, []);
-
 
   return (
     <div className="flex flex-col">
@@ -82,9 +78,9 @@ export default function Sliders(props) {
           slider-height="10px"
           slider-bg-fill="#77042B"
           slider-bg="#76877D"
-          pointer-width="20px"
-          pointer-height="20px"
-          pointer-radius="5px"
+          pointer-width="25px"
+          pointer-height="25px"
+          pointer-radius="50%"
           pointer-bg="#77042B"
           pointer-bg-hover="#CF9BCB"
           pointer-bg-focus="#CF9BCB"
@@ -92,12 +88,11 @@ export default function Sliders(props) {
           pointer2-shadow-focus="0 0 20px #CF9BCB"
           pointer1-shadow-hover="0 0 20px #CF9BCB"
           pointer2-shadow-hover="0 0 20px #CF9BCB"
-          pointer-border="1px solid black"
+          pointer-border="1px solid #104547"
           pointer-border-hover="2px solid #CF9BCB"
           pointer-border-focus="2px solid #CF9BCB"
         ></tc-range-slider>
       </div>
-
       {/* Year Label and Selected Values */}
       <div className="my-2">
         <h5 className="flex justify-between mb-1 text-textColor">
@@ -127,9 +122,9 @@ export default function Sliders(props) {
           slider-height="10px"
           slider-bg-fill="#77042B"
           slider-bg="#76877D"
-          pointer-width="20px"
-          pointer-height="20px"
-          pointer-radius="5px"
+          pointer-width="25px"
+          pointer-height="25px"
+          pointer-radius="50%"
           pointer-bg="#77042B"
           pointer-bg-hover="#CF9BCB"
           pointer-bg-focus="#CF9BCB"
@@ -137,7 +132,7 @@ export default function Sliders(props) {
           pointer2-shadow-focus="0 0 20px #CF9BCB"
           pointer1-shadow-hover="0 0 20px #CF9BCB"
           pointer2-shadow-hover="0 0 20px #CF9BCB"
-          pointer-border="1px solid black"
+          pointer-border="1px solid #104547"
           pointer-border-hover="2px solid #CF9BCB"
           pointer-border-focus="2px solid #CF9BCB"
         ></tc-range-slider>
