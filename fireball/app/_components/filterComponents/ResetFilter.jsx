@@ -8,7 +8,7 @@ export default function ResetButton(props) {
     setNameSearch,
     setRecSearch,
     setFilteredDataSet,
-    setIsMassSliderActive
+    setIsMassSliderActive,
   } = props;
 
   // Reset sorts and filters back to default //
@@ -34,7 +34,7 @@ export default function ResetButton(props) {
       <button
         type="button"
         onClick={(e) => resetFilters()}
-        className="w-40 text-accent hover:text-white border border-accent hover:bg-accent focus:ring-2 focus:outline-none focus:ring-acccent font-medium rounded-lg text-sm py-2 text-center dark:border-accent dark:text-accent dark:hover:text-white dark:hover:bg-accent dark:focus:ring-accent ease-in-out duration-300"
+        className="w-60 lg:w-40 lg:ml-2 shadow-lg text-white text-bold border border-accent bg-accent hover:bg-btnHover focus:ring-2 focus:outline-none rounded-lg text-sm py-2 text-center ease-in-out duration-300"
       >
         RESET
       </button>

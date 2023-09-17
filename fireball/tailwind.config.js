@@ -11,6 +11,8 @@ module.exports = {
         primary: "#77042b",
         secondary: "#cf9bcb",
         accent: "#104547",
+        lightAccent: "#10454766",
+        btnHover: "#104547cc",
         textColor: "#333333",
         borderColor: "#d9D9D9",
       },

@@ -10,7 +10,7 @@ export default function Sliders(props) {
     setYearSliderV1,
     yearSliderV2,
     setYearSliderV2,
-    setIsMassSliderActive
+    setIsMassSliderActive,
   } = props;
 
   // Required To Prevent "ReferenceError: HTMLElement"
@@ -25,7 +25,9 @@ export default function Sliders(props) {
     const onChange = (e) => {
       setMassSliderV1(e.detail.value1);
       setMassSliderV2(e.detail.value2);
-      e.detail.value1 === 0 && e.detail.value2 === 23000000 ? setIsMassSliderActive(false):setIsMassSliderActive(true);
+      e.detail.value1 === 0 && e.detail.value2 === 23000000
+        ? setIsMassSliderActive(false)
+        : setIsMassSliderActive(true);
     };
     slider?.addEventListener("change", onChange);
     return () => {
@@ -54,7 +56,7 @@ export default function Sliders(props) {
         <h5 className="flex justify-between mb-2 text-textColor">
           Mass: (kg)
           <span>
-            {massSliderV1/1000}-{massSliderV2/1000}
+            {massSliderV1 / 1000}-{massSliderV2 / 1000}
           </span>
         </h5>
       </div>
@@ -78,9 +80,9 @@ export default function Sliders(props) {
           slider-height="10px"
           slider-bg-fill="#77042B"
           slider-bg="#76877D"
-          pointer-width="25px"
-          pointer-height="25px"
-          pointer-radius="50%"
+          pointer-width="18px"
+          pointer-height="24px"
+          pointer-radius="20%"
           pointer-bg="#77042B"
           pointer-bg-hover="#CF9BCB"
           pointer-bg-focus="#CF9BCB"
@@ -94,7 +96,7 @@ export default function Sliders(props) {
         ></tc-range-slider>
       </div>
       {/* Year Label and Selected Values */}
-      <div className="my-2">
+      <div className="my-4">
         <h5 className="flex justify-between mb-1 text-textColor">
           Year:
           <span>
@@ -122,9 +124,9 @@ export default function Sliders(props) {
           slider-height="10px"
           slider-bg-fill="#77042B"
           slider-bg="#76877D"
-          pointer-width="25px"
-          pointer-height="25px"
-          pointer-radius="50%"
+          pointer-width="18px"
+          pointer-height="24px"
+          pointer-radius="20%"
           pointer-bg="#77042B"
           pointer-bg-hover="#CF9BCB"
           pointer-bg-focus="#CF9BCB"
