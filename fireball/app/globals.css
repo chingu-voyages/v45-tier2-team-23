@@ -2,4 +2,216 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Reset CSS http://meyerweb.com/eric/tools/css/reset/ */
 
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* End of Reset CSS */
+
+body {
+  min-height: 100vh; /* Ensure the body covers the entire viewport height */
+  display: flex;
+  flex-direction: column;
+}
+
+.tooltip {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  padding: 8px;
+  border-radius: 5px;
+  pointer-events: none;
+  font-size: 12px;
+}
+
+/* Small screens (phones) */
+@media only screen and (max-width: 576px) {
+  .graph-container {
+    height: 300px;
+  }
+}
+
+@media only screen and (min-width: 577px) {
+  .graph-container {
+    height: 600px;
+  }
+}
+
+
+/*  Radio Button Style */
+
+.form-group {
+  margin: 1rem 30px;
+  color: #104547;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+label {
+  cursor: pointer;
+  position: relative;
+  left: 10px;
+  font-size: 1rem;
+}
+
+label::before {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background-color: transparent;
+  border: 2px solid #104547;
+  border-radius: 50%;
+  top: 50%;
+  left: -2rem;
+  transform: translateY(-50%);
+  transition: border-color 400ms ease;
+}
+
+label::after {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background-color:  #77042b;
+  border: 2px solid  #77042b;
+  border-radius: 50%;
+  top: 50%;
+  left: -2rem;
+  transform: translateY(-50%) scale(0);
+  transition: transform 400ms ease;
+}
+
+input[type="radio"]:checked + label::before {
+  border-color: #77042b;
+}
+
+input[type="radio"]:checked + label::after {
+  transform: translateY(-50%) scale(0.6);
+}
