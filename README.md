@@ -67,8 +67,8 @@ Library used: [Chart.js](https://www.chartjs.org/)
 
 ## Deployment
 
-Deployed with Vercel 🚀.
-[Live Link](insert link)
+Deployed with Vercel 🚀 
+[Live Link](https://fireballdata.vercel.app/)
 
 ## Team
 
